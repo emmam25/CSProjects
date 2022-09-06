@@ -9,4 +9,4 @@ my favorite things:
 - math
 - juggling
 
-[https://emmam25.github.io/CSProjects/](Website)
+[Website](https://emmam25.github.io/CSProjects/)
