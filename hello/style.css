@@ -1,0 +1,15 @@
+h1 {
+  /* change the color */
+  color: #ff0000;
+  font-size: 2em;
+}
+
+p {
+  /*if there is a single digit for each it gets doubled */
+  background-color: #eee;
+}
+/*things in p still apply to p.special*/
+p.special{
+  font-size: 1.2em;
+  color: #00ff00;
+}
