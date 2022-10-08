@@ -1,4 +1,3 @@
-
 float x, y, r;
 color c1, c2, c3, c;
 ArrayList<circle> circles = new ArrayList<circle>();

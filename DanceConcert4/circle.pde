@@ -10,8 +10,13 @@ class circle{
     yVel = random(-1, 1);
   }
   void run(){
+    PVector mouse = new PVector (mouseX-x, mouseY-y);
+    pushMatrix();
+    translate(x,y);  
+    rotate(mouse.heading());
     fill(c);
-    ellipse(x,y,r,r);
+    ellipse(0,0,r,r);
+    popMatrix();
     x+=xVel;
     y+=yVel;
     if((x>width)||(x<0)){xVel=-xVel;}
