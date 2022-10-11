@@ -39,7 +39,7 @@ class Particle {
   }
 
   //applyGravity Function
-  void applyGravity(PVector gravity) {
+  void applyGravity() {
     //add the gravity vector to acceleration
     acceleration.add(0,-0.05);
   }

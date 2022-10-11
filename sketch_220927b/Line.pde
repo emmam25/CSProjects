@@ -1,4 +1,0 @@
-class line{
-  line(){
-  }
-}
