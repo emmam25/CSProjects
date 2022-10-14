@@ -98,7 +98,7 @@ class KinectTracker {
       }
     }
     display.updatePixels();
-
+    Change(display);
     // Draw the image
     imageMode(CENTER);
     image(display, width/2, height/2);

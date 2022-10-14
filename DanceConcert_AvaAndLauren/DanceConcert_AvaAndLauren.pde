@@ -27,7 +27,7 @@ void setup() {
   waveform.input(in);
   yellow = color(225,218,0);
   blue = color (0,193,255);
-  cream = color (255,248,220);
+  cream = color (248, 245, 203);
 }
 
 void draw() {
