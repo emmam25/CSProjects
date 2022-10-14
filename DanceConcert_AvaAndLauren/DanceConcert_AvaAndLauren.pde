@@ -11,6 +11,7 @@ Amplitude amp;
 Waveform waveform;
 AudioIn in;
 int songs = 1000;
+color yellow, cream, blue;
 
 void setup() {
   fullScreen();
@@ -24,6 +25,9 @@ void setup() {
   amp.input(in);
   waveform = new Waveform(this, songs);
   waveform.input(in);
+  yellow = color(225,218,0);
+  blue = color (0,193,255);
+  cream = color (255,248,220);
 }
 
 void draw() {
@@ -31,16 +35,16 @@ void draw() {
   waveform.analyze();
   drawGradient(amp.analyze());
   if (amp.analyze()<0.1){
-    stroke(0,193,255); //waveform blue, rectangle cream
-    tracker.setColor(color(225,218, 0));
+    stroke(blue); //waveform blue, rectangle cream
+    tracker.setColor(color(yellow));
   }
   else if (0.1<amp.analyze() && amp.analyze()<0.3){
-    stroke(255,248,220); //waveform cream, rectangle yellow
-     tracker.setColor(color(0,193,255));
+    stroke(cream); //waveform cream, rectangle yellow
+     tracker.setColor(color(blue));
   }
   else if (amp.analyze()>0.3){
-    stroke(225,218,0); //waveform yellow, rectangle blue
-    tracker.setColor(color(255,248,220));
+    stroke(yellow); //waveform yellow, rectangle blue
+    tracker.setColor(color(cream));
   }
   doingTheWaveform(); 
   // Run the tracking analysis
@@ -51,13 +55,13 @@ void draw() {
 
 void drawGradient(float a){
   if (a<0.1){
-    fill(255,248,220);
+    fill(cream);
   }
   else if (0.1<a && a<0.3){
-    fill(225,218,0);
+    fill(yellow);
   }
   else if (a>0.3){
-    fill(0,193,255);
+    fill(blue);
   }
   noStroke();
   rect(0,0,width/10, height);
