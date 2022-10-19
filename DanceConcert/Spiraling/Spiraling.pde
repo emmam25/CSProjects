@@ -28,9 +28,11 @@ void draw() {
   y+=vy;
   if (x>width/2 || x<0) {
     vx = -vx;
+    vy = -vy;
   }
   if (y>height/2 || y<0) {
     vy = -vy;
+    vx = -vx;
   }
   println(timeInterval);
   if(timeInterval==2000){
