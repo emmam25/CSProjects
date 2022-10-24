@@ -22,6 +22,9 @@ class Ball{
     noStroke();
     fill(c, lifeSpan);
     ellipse(position.x, position.y, width/30, width/30);
-    lifeSpan--;
+    lifeSpan-=7;
+  }
+  void setColor(color c){
+    this.c=c;
   }
 }

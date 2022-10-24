@@ -6,12 +6,14 @@ import processing.sound.*;
 KinectTracker tracker;
 Kinect kinect;
 
-SoundFile song;
 Amplitude amp;
 Waveform waveform;
 AudioIn in;
+
 int songs = 1000;
 color yellow, cream, blue;
+
+float min, max;
 
 ArrayList<Ball> balls = new ArrayList<Ball>();
 
@@ -30,23 +32,34 @@ void setup() {
   yellow = color(225,218,0);
   blue = color (0,193,255);
   cream = color (248, 245, 203);
+  min = 0.1;
+  max = 0.3;
 }
 
 void draw() {
   background(0);
   waveform.analyze();
   drawGradient(amp.analyze());
-  if (amp.analyze()<0.1){
+  if (amp.analyze()<min){
     stroke(blue); //waveform blue, rectangle cream
     tracker.setColor(color(yellow));
+    for(Ball b: balls){
+      b.setColor(blue);
+    }
   }
-  else if (0.1<amp.analyze() && amp.analyze()<0.3){
+  else if (min<amp.analyze() && amp.analyze()<max){
     stroke(cream); //waveform cream, rectangle yellow
-     tracker.setColor(color(blue));
+    for(Ball b: balls){
+      b.setColor(cream);
+    }
+    tracker.setColor(color(blue));
   }
-  else if (amp.analyze()>0.3){
+  else if (amp.analyze()>max){
     stroke(yellow); //waveform yellow, rectangle blue
     tracker.setColor(color(cream));
+    for(Ball b: balls){
+      b.setColor(yellow);
+    }
   }
   doingTheWaveform(); 
   // Run the tracking analysis
@@ -63,13 +76,13 @@ void draw() {
 }
 
 void drawGradient(float a){
-  if (a<0.1){
+  if (a<min){
     fill(cream);
   }
-  else if (0.1<a && a<0.3){
+  else if (min<a && a<max){
     fill(yellow);
   }
-  else if (a>0.3){
+  else if (a>max){
     fill(blue);
     Ball b = new Ball(new PVector(0,0), color(255));
     balls.add(b);
