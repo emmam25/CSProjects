@@ -13,11 +13,11 @@ void draw() {
   int n=10;
   for (int i=0; i<n; i++) {
     rotate(TWO_PI/n);
-    fill(random(130,255),random(130,255),random(130,255));
+    fill(random(130,255),random(130,255),random(130,255), random(0, 255));
     triangle(x, 0, x+random(100),random(50), x, random(50));
-    fill(random(130,255),random(130,255),random(130,255));
+    fill(random(130,255),random(130,255),random(130,255), random(0, 255));
     triangle(50,y,50+random(50),y+random(50),50+random(50),y);
-    fill(random(130,255),random(130,255),random(130,255));
+    fill(random(130,255),random(130,255),random(130,255), random(0, 255));
     triangle(x,y,x+random(50),y+random(50),x+random(50),y);
   }
   angle+=random(0.06);

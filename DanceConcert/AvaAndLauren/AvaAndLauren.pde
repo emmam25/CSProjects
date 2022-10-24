@@ -13,6 +13,8 @@ AudioIn in;
 int songs = 1000;
 color yellow, cream, blue;
 
+ArrayList<Ball> balls = new ArrayList<Ball>();
+
 void setup() {
   fullScreen();
   kinect = new Kinect(this);
@@ -51,6 +53,13 @@ void draw() {
   tracker.track();
   // Show the image
   tracker.display();
+  
+  for(int i =0; i<balls.size(); i++){
+    balls.get(i).run();
+    if(balls.get(i).isDead() == false){
+      balls.remove(i);
+    }
+  }
 }
 
 void drawGradient(float a){
@@ -62,6 +71,14 @@ void drawGradient(float a){
   }
   else if (a>0.3){
     fill(blue);
+    Ball b = new Ball(new PVector(0,0), color(255));
+    balls.add(b);
+    Ball b2 = new Ball(new PVector(width,0), color(255));
+    balls.add(b2);
+    Ball b3= new Ball(new PVector(0,height), color(255));
+    balls.add(b3);
+    Ball b4 = new Ball(new PVector(width,height), color(255));
+    balls.add(b4);
   }
   noStroke();
   rect(0,0,width/10, height);
@@ -85,4 +102,5 @@ public void doingTheWaveform(){
     );
   }
   endShape();
+  println(balls.size());
 }

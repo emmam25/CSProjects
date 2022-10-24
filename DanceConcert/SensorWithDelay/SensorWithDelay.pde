@@ -14,7 +14,7 @@ int maxDepth = 900;
 float angle;
 
 void setup() {
-  size(1280, 480);
+  fullScreen();
 
   kinect = new Kinect(this);
   kinect.initDepth();
@@ -34,18 +34,15 @@ void draw() {
     if (rawDepth[i] >= minDepth && rawDepth[i] <= maxDepth) {
       depthImg.pixels[i] = color(255,0,0);
     } else{
-      depthImg.pixels[i] = color(0,255,0,4);
+      depthImg.pixels[i] = color(0,255,0,30);
     }
   }
 
   // Draw the thresholded image
   depthImg.updatePixels();
-  image(depthImg, kinect.width, 0);
- 
-
-  fill(0);
-  text("TILT: " + angle, 10, 20);
-  text("THRESHOLD: [" + minDepth + ", " + maxDepth + "]", 10, 36);
+  imageMode(CENTER);
+ //depthImg.resize(kinect.width*2, kinect.height*2);
+  image(depthImg, width/2, height/2, width, height);
 }
 
 // Adjust the angle and the depth threshold min and max
