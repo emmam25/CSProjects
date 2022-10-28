@@ -1,0 +1,75 @@
+import org.openkinect.freenect.*;
+import org.openkinect.processing.*;
+
+Kinect kinect;
+
+PImage img;
+
+int minDepth =  30;
+int maxDepth = 900;
+
+int place = 0;
+
+
+ArrayList<particle> particles = new ArrayList<particle>();
+
+void setup() {
+  fullScreen();
+
+  kinect = new Kinect(this);
+  kinect.initDepth();
+
+  img = new PImage(kinect.width, kinect.height);
+}
+
+void draw() {
+  //background(0);
+  int[] rawDepth = kinect.getRawDepth();
+  for (int i=0; i < kinect.height; i++) {
+    for (int j =0; j <kinect.width; j++) {
+      int index = i*kinect.width +j;
+      if (rawDepth[index] >= minDepth && rawDepth[index] <= maxDepth) {
+        if (place%2==0) {
+          particle p = new particle(new PVector(j, i),
+            255, new PVector(random(60), 0));
+          particles.add(p);
+        }
+      }else {
+        img.pixels[index] = color(0, 0, 0);
+      } 
+    }
+  }
+
+
+  ArrayList<particle> particles2 = new ArrayList<particle>();
+  for (int i=0; i<particles.size(); i++) {
+    if (particles.get(i).isDead()==false) {
+      particles2.add(particles.get(i));
+    }
+  }
+
+  //println(particles2.size());
+
+  particles = particles2;
+
+  for (int i=0; i<particles.size(); i++) {
+    if (!((int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)>=img.width*img.height) && particles.get(i).getT()<=200) {
+      img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(123, 150, 156, particles.get(i).getT());
+    }
+    particles.get(i).update();
+  }
+
+  for (int i=0; i < kinect.height; i++) {
+    for (int j =0; j <kinect.width; j++) {
+      int index = i*kinect.width +j;
+      if (rawDepth[index] >= minDepth && rawDepth[index] <= maxDepth) {
+        img.pixels[index] = color(227, 244, 244);
+      } 
+    }
+  }
+  img.updatePixels();
+  imageMode(CENTER);
+  // Change(depthImg);
+  image(img, width/2, height/2, width, height);
+  place +=0.1;
+}
