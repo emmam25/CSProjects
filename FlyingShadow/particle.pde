@@ -26,6 +26,9 @@ class particle {
   }
   void update() {
     p.add(v);
-    t-=50;
+    t-=80;
+  }
+  String toString(){
+    return "position: " + p + " velocity: " + v + " transparency: " + t;
   }
 }

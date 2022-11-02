@@ -23,20 +23,20 @@ void setup() {
 }
 
 void draw() {
-  //background(0);
+
   int[] rawDepth = kinect.getRawDepth();
   for (int i=0; i < kinect.height; i++) {
     for (int j =0; j <kinect.width; j++) {
       int index = i*kinect.width +j;
       if (rawDepth[index] >= minDepth && rawDepth[index] <= maxDepth) {
-        if (place%2==0) {
+        if (place%100==0) {
           particle p = new particle(new PVector(j, i),
-            255, new PVector(random(60), 0));
+            500, new PVector(random(60), 0));
           particles.add(p);
         }
-      }else {
-        img.pixels[index] = color(0, 0, 0);
-      } 
+      } else {
+        img.pixels[index] = color(0, 0, 0, 140);
+      }
     }
   }
 
@@ -48,13 +48,14 @@ void draw() {
     }
   }
 
-  //println(particles2.size());
-
   particles = particles2;
 
   for (int i=0; i<particles.size(); i++) {
-    if (!((int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)>=img.width*img.height) && particles.get(i).getT()<=200) {
-      img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(123, 150, 156, particles.get(i).getT());
+    if (!((int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)>=img.width*img.height) && particles.get(i).getT()<=400) {
+      colorMode(HSB, 400);
+      img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(243, 400, particles.get(i).getT());
+     // img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(243, 400-particles.get(i).getT(), 400);
+      colorMode(RGB, 255);
     }
     particles.get(i).update();
   }
@@ -63,7 +64,8 @@ void draw() {
     for (int j =0; j <kinect.width; j++) {
       int index = i*kinect.width +j;
       if (rawDepth[index] >= minDepth && rawDepth[index] <= maxDepth) {
-        img.pixels[index] = color(227, 244, 244);
+        img.pixels[index] = color(0,0,255);
+    //    img.pixels[index] = color(255);
       } 
     }
   }
