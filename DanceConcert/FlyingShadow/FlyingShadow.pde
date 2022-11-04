@@ -8,6 +8,8 @@ PImage img;
 int minDepth =  30;
 int maxDepth = 900;
 
+boolean darkMode;
+
 int place = 0;
 
 
@@ -35,7 +37,8 @@ void draw() {
           particles.add(p);
         }
       } else {
-        img.pixels[index] = color(0, 0, 0, 140);
+        if(darkMode){img.pixels[index] =color(0,0,0,140);}
+        else{img.pixels[index] = color(0,0,255, 140);}
       }
     }
   }
@@ -53,8 +56,10 @@ void draw() {
   for (int i=0; i<particles.size(); i++) {
     if (!((int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)>=img.width*img.height) && particles.get(i).getT()<=400) {
       colorMode(HSB, 400);
-      img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(243, 400, particles.get(i).getT());
-     // img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(243, 400-particles.get(i).getT(), 400);
+      if(darkMode){img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(243, 400, particles.get(i).getT());}
+      
+      else{img.pixels[(int)(particles.get(i).getPlace().y *kinect.width + particles.get(i).getPlace().x)] = color(243, 400-particles.get(i).getT(), 400);}
+      
       colorMode(RGB, 255);
     }
     particles.get(i).update();
@@ -64,8 +69,8 @@ void draw() {
     for (int j =0; j <kinect.width; j++) {
       int index = i*kinect.width +j;
       if (rawDepth[index] >= minDepth && rawDepth[index] <= maxDepth) {
-        img.pixels[index] = color(0,0,255);
-    //    img.pixels[index] = color(255);
+        if(darkMode){img.pixels[index] = color(0,0,255);}
+        else{img.pixels[index] = color(255);}
       } 
     }
   }
@@ -74,4 +79,12 @@ void draw() {
   // Change(depthImg);
   image(img, width/2, height/2, width, height);
   place +=0.1;
+}
+
+void keyPressed(){
+  if(darkMode){
+    darkMode = false;
+  } else {
+    darkMode = true;
+  }
 }
