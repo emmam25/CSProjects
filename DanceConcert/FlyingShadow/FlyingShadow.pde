@@ -5,8 +5,8 @@ Kinect kinect;
 
 PImage img;
 
-int minDepth =  30;
-int maxDepth = 900;
+int minDepth =  100;
+int maxDepth = 1030;
 
 int colorScheme;
 
