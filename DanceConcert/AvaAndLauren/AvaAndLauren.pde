@@ -15,6 +15,8 @@ color yellow, cream, blue;
 
 float min, max;
 
+Box b;
+
 ArrayList<Ball> balls = new ArrayList<Ball>();
 
 void setup() {
@@ -34,6 +36,8 @@ void setup() {
   cream = color (248, 245, 203);
   min = 0.1;
   max = 0.3;
+  
+  b = new Box(255);
 }
 
 void draw() {
@@ -73,6 +77,7 @@ void draw() {
       balls.remove(i);
     }
   }
+  b.run();
 }
 
 void drawGradient(float a){
@@ -116,4 +121,12 @@ public void doingTheWaveform(){
   }
   endShape();
   println(balls.size());
+}
+
+void keyPressed(){
+  if(key == UP){
+    b.startIncrement();
+  } else if (key == DOWN){
+    b.startDecrement();
+  }
 }
