@@ -1,22 +1,22 @@
-class Ball{
+class Ball {
   PVector position;
   PVector velocity;
   color c;
   int lifeSpan=255;
-  Ball(PVector position, color c){
+  Ball(PVector position, color c) {
     this.position = position;
-    velocity = new PVector(random(-30,30), random(-30,30));
+    velocity = new PVector(random(-30, 30), random(-30, 30));
     this.c = c;
   }
-  boolean isDead(){
+  boolean isDead() {
     return lifeSpan>0;
   }
-  void run(){
+  void run() {
     position.add(velocity);
-    if(position.x>width || position.x<0){
+    if (position.x>width || position.x<0) {
       velocity.x=-velocity.x;
     }
-     if(position.y>height || position.y<0){
+    if (position.y>height || position.y<0) {
       velocity.y=-velocity.y;
     }
     noStroke();
@@ -24,7 +24,7 @@ class Ball{
     ellipse(position.x, position.y, width/30, width/30);
     lifeSpan-=7;
   }
-  void setColor(color c){
+  void setColor(color c) {
     this.c=c;
   }
 }

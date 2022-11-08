@@ -1,7 +1,7 @@
 class KinectTracker {
 
   // Depth threshold
-  int threshold = 745;
+  int threshold = 1030;
 
   // Raw location
   PVector loc;
@@ -11,14 +11,13 @@ class KinectTracker {
 
   // Depth data
   int[] depth;
-  
+
   // What we'll show the user
   PImage display;
   color c;
-   
+
   KinectTracker() {
-    // This is an awkard use of a global variable here
-    // But doing it this way for simplicity
+
     kinect.initDepth();
     kinect.enableMirror(true);
     // Make a blank image
@@ -42,7 +41,7 @@ class KinectTracker {
 
     for (int x = 0; x < kinect.width; x++) {
       for (int y = 0; y < kinect.height; y++) {
-        
+
         int offset =  x + y*kinect.width;
         // Grabbing the raw depth
         int rawDepth = depth[offset];
@@ -111,8 +110,7 @@ class KinectTracker {
   void setThreshold(int t) {
     threshold =  t;
   }
-  void setColor(color c){
+  void setColor(color c) {
     this.c = c;
   }
-
 }

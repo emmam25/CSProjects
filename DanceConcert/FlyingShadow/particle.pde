@@ -28,7 +28,7 @@ class particle {
     p.add(v);
     t-=80;
   }
-  String toString(){
+  String toString() {
     return "position: " + p + " velocity: " + v + " transparency: " + t;
   }
 }

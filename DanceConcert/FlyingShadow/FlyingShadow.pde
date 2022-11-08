@@ -12,6 +12,7 @@ int colorScheme;
 
 int place = 0;
 
+Box b;
 
 ArrayList<particle> particles = new ArrayList<particle>();
 
@@ -22,6 +23,8 @@ void setup() {
   kinect.initDepth();
 
   img = new PImage(kinect.width, kinect.height);
+
+  b = new Box(255);
 }
 
 void draw() {
@@ -81,9 +84,9 @@ void draw() {
       if (rawDepth[index] >= minDepth && rawDepth[index] <= maxDepth) {
         if (colorScheme==0) {
           img.pixels[index] = color(0, 0, 255);
-        } else if (colorScheme ==1){
+        } else if (colorScheme ==1) {
           img.pixels[index] = color(255);
-        }else{
+        } else {
           img.pixels[index] = color(255);
         }
       }
@@ -94,12 +97,21 @@ void draw() {
   // Change(depthImg);
   image(img, width/2, height/2, width, height);
   place +=0.1;
+
+  b.run();
 }
 
 void keyPressed() {
-  if (colorScheme>=2) {
-    colorScheme=0;
-  } else {
-    colorScheme ++;
+  if (key == 'c') {
+    if (colorScheme>=2) {
+      colorScheme=0;
+    } else {
+      colorScheme ++;
+    }
+  }
+  if (keyCode == UP) {
+    b.startIncrement();
+  } else if (keyCode == DOWN) {
+    b.startDecrement();
   }
 }
