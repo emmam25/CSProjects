@@ -16,23 +16,27 @@ float min, max;
 
 Box b;
 
+boolean blank = false;
+
 ArrayList<Ball> balls = new ArrayList<Ball>();
 
 void setup() {
   fullScreen();
   
-//change to change color   
+  noCursor();
+
+  //change to change color
   yellow = color(225, 218, 0);
-  blue = color (99,138,240);
+  blue = color (99, 138, 240);
   cream = color (248, 245, 203);
 
 
-//change to change amplitude threshold
-  min = 0.1;
+  //change to change amplitude threshold
+  min = 0.08;
   max = 0.3;
-  
-  
-  
+
+
+
   kinect = new Kinect(this);
   tracker = new KinectTracker();
   println(kinect.width);
@@ -70,28 +74,30 @@ void draw() {
       b.setColor(yellow);
     }
   }
-  doingTheWaveform();
-  // Run the tracking analysis
-  tracker.track();
-  // Show the image
-  tracker.display();
-
+  if (!blank) {
+    doingTheWaveform();
+    // Run the tracking analysis
+    tracker.track();
+    // Show the image
+    tracker.display();
+  }
+  
+  b.run();
+  
   for (int i =0; i<balls.size(); i++) {
     balls.get(i).run();
     if (balls.get(i).isDead() == false) {
       balls.remove(i);
     }
   }
-  b.run();
+
+ if(blank){doingTheWaveform();}
 }
 
 void drawGradient(float a) {
   if (a<min) {
     fill(cream);
   } else if (min<a && a<max) {
-    fill(yellow);
-  } else if (a>max) {
-    fill(blue);
     Ball b = new Ball(new PVector(0, 0), color(255));
     balls.add(b);
     Ball b2 = new Ball(new PVector(width, 0), color(255));
@@ -100,6 +106,9 @@ void drawGradient(float a) {
     balls.add(b3);
     Ball b4 = new Ball(new PVector(width, height), color(255));
     balls.add(b4);
+    fill(yellow);
+  } else if (a>max) {
+    fill(blue);
   }
   noStroke();
   rect(0, 0, width/10, height);
@@ -110,7 +119,7 @@ public void doingTheWaveform() {
   for (int i = 0; i < songs; i++) {
     vertex(
       map(i, 0, songs, 0, width+20),
-      map(waveform.data[i], -1, 1, 0, 100)
+      map(waveform.data[i], -0.2, 2, 0, 500)
       );
   }
   noFill();
@@ -119,7 +128,7 @@ public void doingTheWaveform() {
   for (int i = 0; i < songs; i++) {
     vertex(
       map(i, 0, songs, 0, width+20),
-      map(waveform.data[i], -1, 1, height-100, height)
+      map(waveform.data[i], -0.2, 2, height-100, height-300)
       );
   }
   endShape();
