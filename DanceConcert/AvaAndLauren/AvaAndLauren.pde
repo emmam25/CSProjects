@@ -2,7 +2,6 @@ import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
 import processing.sound.*;
 
-// The kinect stuff is happening in another class
 KinectTracker tracker;
 Kinect kinect;
 
@@ -21,6 +20,19 @@ ArrayList<Ball> balls = new ArrayList<Ball>();
 
 void setup() {
   fullScreen();
+  
+//change to change color   
+  yellow = color(225, 218, 0);
+  blue = color (99,138,240);
+  cream = color (248, 245, 203);
+
+
+//change to change amplitude threshold
+  min = 0.1;
+  max = 0.3;
+  
+  
+  
   kinect = new Kinect(this);
   tracker = new KinectTracker();
   println(kinect.width);
@@ -31,20 +43,6 @@ void setup() {
   amp.input(in);
   waveform = new Waveform(this, songs);
   waveform.input(in);
-  
-  
-  
-  
-  yellow = color(225, 218, 0);
-  blue = color (99,138,240);
-  cream = color (248, 245, 203);
-
-
-//change to change amplitude threshold
-  min = 0.1;
-  max = 0.3;
-
-
 
   b = new Box(255);
 }
