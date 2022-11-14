@@ -120,7 +120,7 @@ public void doingTheWaveform() {
   for (int i = 0; i < songs; i++) {
     vertex(
       map(i, 0, songs, 0, width+20),
-      map(waveform.data[i], -0.2, 2, 0, 500)
+      map(waveform.data[i], -0.2, 1, 0, 500)
       );
   }
   noFill();
@@ -129,7 +129,7 @@ public void doingTheWaveform() {
   for (int i = 0; i < songs; i++) {
     vertex(
       map(i, 0, songs, 0, width+20),
-      map(waveform.data[i], -0.2, 2, height-100, height-300)
+      map(waveform.data[i], -0.2, 1, height-100, height-300)
       );
   }
   endShape();

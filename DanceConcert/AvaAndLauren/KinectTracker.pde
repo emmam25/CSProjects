@@ -100,7 +100,7 @@ class KinectTracker {
     Change(display);
     // Draw the image
     imageMode(CENTER);
-    image(display, width/2, height/2, width/1.75, height/1.5);
+    image(display, width/2, (height/2)-30, width/1.75, height/1.5);
   }
 
   int getThreshold() {
