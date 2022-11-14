@@ -22,7 +22,7 @@ ArrayList<Ball> balls = new ArrayList<Ball>();
 
 void setup() {
   fullScreen();
-  
+
   noCursor();
 
   //change to change color
@@ -66,6 +66,14 @@ void draw() {
     for (Ball b : balls) {
       b.setColor(cream);
     }
+    Ball b = new Ball(new PVector(0, 0), color(255));
+    balls.add(b);
+    Ball b2 = new Ball(new PVector(width, 0), color(255));
+    balls.add(b2);
+    Ball b3= new Ball(new PVector(0, height), color(255));
+    balls.add(b3);
+    Ball b4 = new Ball(new PVector(width, height), color(255));
+    balls.add(b4);
     tracker.setColor(color(blue));
   } else if (amp.analyze()>max) {
     stroke(yellow); //waveform yellow, rectangle blue
@@ -81,31 +89,24 @@ void draw() {
     // Show the image
     tracker.display();
   }
-  
+
   b.run();
-  
+
+  if (blank) {
+    doingTheWaveform();
+  }
   for (int i =0; i<balls.size(); i++) {
     balls.get(i).run();
     if (balls.get(i).isDead() == false) {
       balls.remove(i);
     }
   }
-
- if(blank){doingTheWaveform();}
 }
 
 void drawGradient(float a) {
   if (a<min) {
     fill(cream);
   } else if (min<a && a<max) {
-    Ball b = new Ball(new PVector(0, 0), color(255));
-    balls.add(b);
-    Ball b2 = new Ball(new PVector(width, 0), color(255));
-    balls.add(b2);
-    Ball b3= new Ball(new PVector(0, height), color(255));
-    balls.add(b3);
-    Ball b4 = new Ball(new PVector(width, height), color(255));
-    balls.add(b4);
     fill(yellow);
   } else if (a>max) {
     fill(blue);

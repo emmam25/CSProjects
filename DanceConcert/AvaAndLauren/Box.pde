@@ -19,11 +19,13 @@ class Box {
     rect(0, 0, width, height);
     if ((t>255)||(t<0)) {
       tchange=0;
-    }if (t>=255){
+    }
+    if (t>=255) {
       blank = true;
-    }else {
+      t = 255;
+    } else {
       blank = false;
     }
-    //println(t);
+    println(t);
   }
 }
