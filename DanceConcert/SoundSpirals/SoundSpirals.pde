@@ -12,6 +12,7 @@ AudioIn in;
 
 void setup() {
   fullScreen();
+  noCursor();
   vx=3;
   vy=3;
   background(0);
