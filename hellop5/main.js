@@ -33,4 +33,4 @@ addEventListener('click', (event) => {
 
 });
 
-onclick = (event) => {};
+//onclick = (event) => {};
