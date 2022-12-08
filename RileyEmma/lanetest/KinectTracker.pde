@@ -6,6 +6,8 @@ class KinectTracker {
   PImage display;
   PApplet p;
 
+  int ducklineY;
+
 
   KinectTracker(PApplet p) {
     minDepth = 30;
@@ -22,11 +24,11 @@ class KinectTracker {
       for (int y = 0; y < kinect.height; y++) {
         // mirroring image
         int offset = (kinect.width - x - 1) + y * kinect.width;
-        // Raw depth
+
         int depth = rawDepth[offset];
         int pix = x + y*display.width;
         if (depth > minDepth && depth < maxDepth) {
-          // A red color instead
+
           display.pixels[pix] = color(150, 50, 50);
         } else {
           display.pixels[pix] = color(0);
@@ -39,6 +41,8 @@ class KinectTracker {
     strokeWeight(6);
     line(width/3, 0, width/3, height);
     line(2*width/3, 0, 2*width/3, height);
+    stroke(0, 255, 0);
+    line(0, ducklineY, width, ducklineY);
   }
 
   String lane() {
@@ -71,5 +75,23 @@ class KinectTracker {
     }
 
     return "NONE";
+  }
+  
+//this ducking does not work
+  boolean ducked() {
+    int[] rawDepth = kinect.getRawDepth();
+    int upPixels=0;
+    
+     for (int x=0; x<kinect.width; x++) {
+      for (int y = 0; y<kinect.height; y++) {
+        int offset =  kinect.width- x -1 + y * kinect.width;
+        if (rawDepth[offset]>minDepth && rawDepth[offset]<maxDepth) {
+          if (y<=ducklineY/(width/kt.kinect.width)) {
+            upPixels++;
+          } 
+        }
+      }
+    }
+    return upPixels<100;
   }
 }
