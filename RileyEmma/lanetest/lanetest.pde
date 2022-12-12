@@ -2,19 +2,27 @@ import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
 int place=0;
 ArrayList<gamestate> gs = new ArrayList<gamestate>();
-moveDuckLine ml = new moveDuckLine();
-level1 lvl1 = new level1();
+moveDuckLine md;
+moveJumpLine mj;
+level1 lvl1;
+lose lost;
 KinectTracker kt;
 
 
 void setup() {
   size(displayWidth, displayHeight);
-  gs.add(ml);
+  md = new moveDuckLine();
+  gs.add(md);
+  mj = new moveJumpLine();
+  gs.add(mj);
+  lvl1 = new level1();
   gs.add(lvl1);
+  lost = new lose();
+  gs.add(lost);
   kt = new KinectTracker(this);
 }
 void draw() {
-  background(255);
+  background(0);
   if (gs.get(place).run()) {
     if (place==gs.size()-1) {
       exit();

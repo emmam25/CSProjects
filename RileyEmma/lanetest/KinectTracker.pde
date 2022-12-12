@@ -7,6 +7,7 @@ class KinectTracker {
   PApplet p;
 
   int ducklineY;
+  int jumplineY;
 
 
   KinectTracker(PApplet p) {
@@ -29,9 +30,9 @@ class KinectTracker {
         int pix = x + y*display.width;
         if (depth > minDepth && depth < maxDepth) {
 
-          display.pixels[pix] = color(150, 50, 50);
+          display.pixels[pix] = color(150, 50, 50, 200);
         } else {
-          display.pixels[pix] = color(0);
+          display.pixels[pix] = color(0,0,0,1);
         }
       }
     }
@@ -43,6 +44,8 @@ class KinectTracker {
     line(2*width/3, 0, 2*width/3, height);
     stroke(0, 255, 0);
     line(0, ducklineY, width, ducklineY);
+    stroke(255,0,0);
+    line(0,jumplineY, width, jumplineY);
   }
 
   String lane() {
@@ -76,22 +79,39 @@ class KinectTracker {
 
     return "NONE";
   }
-  
-//this ducking does not work
+
+
   boolean ducked() {
     int[] rawDepth = kinect.getRawDepth();
     int upPixels=0;
-    
-     for (int x=0; x<kinect.width; x++) {
+
+    for (int x=0; x<kinect.width; x++) {
       for (int y = 0; y<kinect.height; y++) {
         int offset =  kinect.width- x -1 + y * kinect.width;
         if (rawDepth[offset]>minDepth && rawDepth[offset]<maxDepth) {
           if (y<=ducklineY/(width/kt.kinect.width)) {
             upPixels++;
-          } 
+          }
         }
       }
     }
     return upPixels<100;
+  }
+
+  boolean jumped() {
+    int[] rawDepth = kinect.getRawDepth();
+    int upPixels=0;
+
+    for (int x=0; x<kinect.width; x++) {
+      for (int y = 0; y<kinect.height; y++) {
+        int offset =  kinect.width- x -1 + y * kinect.width;
+        if (rawDepth[offset]>minDepth && rawDepth[offset]<maxDepth) {
+          if (y<=jumplineY/(width/kt.kinect.width)) {
+            upPixels++;
+          }
+        }
+      }
+    }
+    return upPixels>500;
   }
 }
