@@ -1,9 +1,8 @@
-class box {
+class box extends obstacle{
   PVector pos;
   float lerpX, lerpY;
   PVector size;
-  boolean big;
-  String lane;
+
   box (String lane) {
     lerpX = 0.01;
     lerpY = 0.01;
