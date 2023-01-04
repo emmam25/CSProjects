@@ -1,7 +1,9 @@
 import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
-int place=0;
+
+int place=0; //variable for which gamestate you are on
 ArrayList<gamestate> gs = new ArrayList<gamestate>();
+
 moveDuckLine md;
 moveJumpLine mj;
 level1 lvl1;
@@ -23,8 +25,9 @@ void setup() {
 }
 void draw() {
   background(0);
+  //if the previous gamestate is done, move to the next one
   if (gs.get(place).run()) {
-    if (place==gs.size()-1) {
+    if (place==gs.size()-1) { 
       exit();
     } else {
       place++;

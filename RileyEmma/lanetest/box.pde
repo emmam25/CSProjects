@@ -26,8 +26,8 @@ class box extends obstacle{
     // rect(pos.x, pos.y, 50, 50);
     rectMode(CORNER);
     if (!big) {
-      lerpX+= 0.1;
-      lerpY  +=0.1;
+      lerpX+= 0.05;
+      lerpY  +=0.05;
     }
 
    // println(lerpX);

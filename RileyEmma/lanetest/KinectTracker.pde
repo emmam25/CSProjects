@@ -1,7 +1,7 @@
 class KinectTracker {
   Kinect kinect;
   int minDepth, maxDepth;
-  int lane;
+
   int[] depth;
   PImage display;
   PApplet p;
@@ -23,6 +23,7 @@ class KinectTracker {
     int[] rawDepth = kinect.getRawDepth();
     for (int x = 0; x < kinect.width; x++) {
       for (int y = 0; y < kinect.height; y++) {
+        
         // mirroring image
         int offset = (kinect.width - x - 1) + y * kinect.width;
 
@@ -38,6 +39,8 @@ class KinectTracker {
     }
     display.updatePixels();
     image(display, 0, 0, width, height);
+    /*these lines show you which lane to be in 
+    and where to jump and duck*/
     stroke(255);
     strokeWeight(6);
     line(width/3, 0, width/3, height);
@@ -47,12 +50,14 @@ class KinectTracker {
     stroke(255,0,0);
     line(0,jumplineY, width, jumplineY);
   }
-
+  
+  //this function returns the lane you are in
   String lane() {
     int[] rawDepth = kinect.getRawDepth();
     int leftCount=0;
     int midCount=0;
     int rightCount=0;
+    //count how many pixels are in each lane
     for (int x=0; x<kinect.width; x++) {
       for (int y = 0; y<kinect.height; y++) {
         int offset =  kinect.width- x -1 + y * kinect.width;
@@ -68,7 +73,7 @@ class KinectTracker {
       }
     }
 
-
+    //whichever lane has the most pixels is the one you are in
     if (leftCount > midCount && leftCount > rightCount) {
       return "LEFT";
     } else if (midCount > leftCount && midCount > rightCount) {
@@ -80,7 +85,7 @@ class KinectTracker {
     return "NONE";
   }
 
-
+  //returns whether you ducked or not
   boolean ducked() {
     int[] rawDepth = kinect.getRawDepth();
     int upPixels=0;
@@ -95,6 +100,7 @@ class KinectTracker {
         }
       }
     }
+    //if there are many pixels above the duck line you have not ducked
     return upPixels<100;
   }
 
@@ -112,6 +118,7 @@ class KinectTracker {
         }
       }
     }
+    //if there are enough pixels above the jump line you have jumped
     return upPixels>500;
   }
 }
