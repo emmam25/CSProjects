@@ -5,12 +5,14 @@ class level1 extends gamestate {
   avatar myavatar;
   //changes how many obstacles come at a time
   int numberOfObstacles = 2;
+  tracker kt;
 
-  level1() {
+  level1(tracker kt) {
     b = new box ("RIGHT");
     obstacles  = new ArrayList<obstacle>();
     obstacles.add(b);
     myavatar = new avatar ();
+    this.kt = kt;
   }
 
 
@@ -33,11 +35,11 @@ class level1 extends gamestate {
 
         //check foot whackers
       } else if (obstacles.get(i).getClass() == footWhacker.class) {
-       /* if (obstacles.get(i).big && kt.lane().equals(obstacles.get(i).lane) && !kt.jumped()) {
+        if (obstacles.get(i).big && kt.lane().equals(obstacles.get(i).lane)) {
           done = true;
-        }  */
-        
-        if( kt.lane().equals(obstacles.get(i).lane) && kt.jumped()){
+        }
+
+        if ( kt.lane().equals(obstacles.get(i).lane) && kt.jumped()) {
           obstacles.get(i).big = true;
         }
       }
@@ -122,7 +124,7 @@ class level1 extends gamestate {
       }
     }
 
-   // myavatar.run(kt.lane(), kt.ducked(), kt.jumped());
+     myavatar.run(kt.lane(), kt.ducked(), kt.jumped());
     kt.display();
     fill(255);
     text(kt.lane(), 100, 100);
@@ -132,5 +134,9 @@ class level1 extends gamestate {
     text("jumped:" + j, 500, 100);
     text("score: "+ score, 700, 100);
     return done;
+  }
+  
+  void keyPressed(){
+    kt.keyPressed();
   }
 }

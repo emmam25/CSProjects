@@ -17,10 +17,9 @@ class moveJumpLine extends gamestate{
     }
   }
   void keyPressed() {
-    if (key == 's') {
+    if (key == ' ') {
       moving = false;
       kt.jumplineY = this.jumplineY;
-    } else if (key == ' ') {
       done = true;
     }
   }

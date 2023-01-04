@@ -9,7 +9,6 @@ class box extends obstacle{
     size = new PVector(0, 0);
     if (lane.equals( "RIGHT")) {
       pos = new PVector(5*width/6, height/2);
-      println(width);
     } else if (lane.equals("LEFT")) {
       pos = new PVector(width/6, height/2);
     } else if (lane.equals("MID")) {

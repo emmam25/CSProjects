@@ -7,8 +7,8 @@ class avatar {
     pos = new PVector(5*width/6, width/2);
   }
 
-  void run(String lane, boolean ducked, boolean jumped) {
-    this.lane = lane;
+  void run(String newlane, boolean newducked, boolean newjumped) {
+    this.lane = newlane;
     if (lane == "RIGHT") {
       pos.x = 5*width/6;
     } else  if (lane == "LEFT") {
@@ -17,10 +17,10 @@ class avatar {
       pos.x = width/2;
     }
     
-    if (ducked){
+    if (newducked){
       pos.y = height/2 + kt.ducklineY;
     } 
-    if (jumped){
+    if (newjumped){
       pos.y = height/2 - kt.ducklineY;
     }
     noStroke();

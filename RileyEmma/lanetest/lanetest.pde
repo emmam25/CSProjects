@@ -9,25 +9,27 @@ moveJumpLine mj;
 level1 lvl1;
 lose lost;
 KinectTracker kt;
+KeyTracker keyt;
 
 
 void setup() {
   size(displayWidth, displayHeight);
+  kt = new KinectTracker(this);
+  keyt = new KeyTracker();
   md = new moveDuckLine();
   gs.add(md);
   mj = new moveJumpLine();
   gs.add(mj);
-  lvl1 = new level1();
+  lvl1 = new level1(kt);
   gs.add(lvl1);
   lost = new lose();
   gs.add(lost);
-  kt = new KinectTracker(this);
 }
 void draw() {
   background(0);
   //if the previous gamestate is done, move to the next one
   if (gs.get(place).run()) {
-    if (place==gs.size()-1) { 
+    if (place==gs.size()-1) {
       exit();
     } else {
       place++;

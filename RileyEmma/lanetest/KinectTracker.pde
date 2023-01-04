@@ -1,4 +1,4 @@
-class KinectTracker {
+class KinectTracker extends tracker{
   Kinect kinect;
   int minDepth, maxDepth;
 
@@ -6,8 +6,7 @@ class KinectTracker {
   PImage display;
   PApplet p;
 
-  int ducklineY;
-  int jumplineY;
+
 
 
   KinectTracker(PApplet p) {

@@ -17,11 +17,9 @@ class moveDuckLine extends gamestate {
     }
   }
   void keyPressed() {
-    //maybe these should be combined into one key press?
-    if (key == 's') {
+    if (key == ' ') {
       moving = false;
       kt.ducklineY = this.ducklineY;
-    } else if (key == ' ') {
       done = true;
     }
   }
