@@ -1,8 +1,5 @@
-import gifAnimation.*;
-
 import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
-
 
 int place=0; //variable for which gamestate you are on
 ArrayList<gamestate> gs = new ArrayList<gamestate>();
@@ -14,27 +11,23 @@ lose lost;
 KinectTracker kt;
 KeyTracker keyt;
 
-PImage background;
-
 
 void setup() {
-  background = loadImage("background.jpg");
-  size(displayWidth, displayHeight);
+  size(720,450);
   kt = new KinectTracker(this);
   keyt = new KeyTracker();
   md = new moveDuckLine();
   gs.add(md);
   mj = new moveJumpLine();
   gs.add(mj);
-  lvl1 = new level1(kt, this);
+  lvl1 = new level1(kt);
   gs.add(lvl1);
   lost = new lose();
   gs.add(lost);
 }
 void draw() {
   background(0);
-  imageMode(CORNER);
-  image(background, 0,0, width, height);
+  
   //if the previous gamestate is done, move to the next one
   if (gs.get(place).run()) {
     if (place==gs.size()-1) {

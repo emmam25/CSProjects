@@ -37,6 +37,7 @@ class KinectTracker extends tracker{
       }
     }
     display.updatePixels();
+    imageMode(CORNER);
     image(display, 0, 0, width, height);
     /*these lines show you which lane to be in 
     and where to jump and duck*/
@@ -93,7 +94,7 @@ class KinectTracker extends tracker{
       for (int y = 0; y<kinect.height; y++) {
         int offset =  kinect.width- x -1 + y * kinect.width;
         if (rawDepth[offset]>minDepth && rawDepth[offset]<maxDepth) {
-          if (y<=ducklineY/(width/kt.kinect.width)) {
+          if ((y*height)/kinect.height<=ducklineY) {
             upPixels++;
           }
         }
@@ -111,7 +112,7 @@ class KinectTracker extends tracker{
       for (int y = 0; y<kinect.height; y++) {
         int offset =  kinect.width- x -1 + y * kinect.width;
         if (rawDepth[offset]>minDepth && rawDepth[offset]<maxDepth) {
-          if (y<=jumplineY/(width/kt.kinect.width)) {
+          if ((y*height)/kinect.height<=jumplineY) {
             upPixels++;
           }
         }

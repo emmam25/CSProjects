@@ -1,22 +1,25 @@
 class level1 extends gamestate {
   box b;
   int score;
+  float lerpIncrement = 0.05;
+  float lerpAcceleration = 0.0001;
   ArrayList<obstacle> obstacles;
   avatar myavatar;
   //changes how many obstacles come at a time
   int numberOfObstacles = 2;
   tracker kt;
 
-  level1(tracker kt) {
-    b = new box ("RIGHT");
+  level1(tracker kt, PApplet p) {
+    b = new box ("RIGHT", lerpIncrement);
     obstacles  = new ArrayList<obstacle>();
     obstacles.add(b);
-    myavatar = new avatar ();
+    myavatar = new avatar (p);
     this.kt = kt;
   }
 
 
   boolean run() {
+    lerpIncrement += lerpAcceleration; 
     for (int i = 0; i<obstacles.size(); i++) {
       //update and display all obstacles
       obstacles.get(i).run();
@@ -70,13 +73,13 @@ class level1 extends gamestate {
           /*I think this code should be rewritten-
            we could probably do this better with a while loop or something */
           if (random2 ==0 && filledLane !="LEFT") {
-            b2 = new box ("LEFT");
+            b2 = new box ("LEFT", lerpIncrement);
             filledLane = "LEFT";
           } else if (random2 == 1 && filledLane !="RIGHT") {
-            b2 = new box ("RIGHT");
+            b2 = new box ("RIGHT", lerpIncrement);
             filledLane = "RIGHT";
           } else {
-            b2 = new box("MID");
+            b2 = new box("MID", lerpIncrement);
             if (filledLane =="MID") {
               b2.big = true;
             } else {
@@ -86,13 +89,13 @@ class level1 extends gamestate {
           //creates a headWhacker if random is 1
         } else if (random ==1) {
           if (random2 ==0 && filledLane !="LEFT") {
-            b2 = new headWhacker ("LEFT", kt.ducklineY);
+            b2 = new headWhacker ("LEFT", kt.ducklineY, lerpIncrement);
             filledLane = "LEFT";
           } else if (random2 == 1 && filledLane !="RIGHT") {
-            b2 = new headWhacker ("RIGHT", kt.ducklineY);
+            b2 = new headWhacker ("RIGHT", kt.ducklineY, lerpIncrement);
             filledLane = "RIGHT";
           } else {
-            b2 = new headWhacker("MID", kt.ducklineY);
+            b2 = new headWhacker("MID", kt.ducklineY, lerpIncrement);
 
             if (filledLane =="MID") {
               b2.big = true;
@@ -104,13 +107,13 @@ class level1 extends gamestate {
           //create a foot whacker if random is 2
         } else {
           if (random2 ==0 && filledLane !="LEFT") {
-            b2 = new footWhacker ("LEFT", 3*height/4);
+            b2 = new footWhacker ("LEFT",  lerpIncrement);
             filledLane = "LEFT";
           } else if (random2 == 1 && filledLane !="RIGHT") {
-            b2 = new footWhacker ("RIGHT", 3*height/4);
+            b2 = new footWhacker ("RIGHT", lerpIncrement);
             filledLane = "RIGHT";
           } else {
-            b2 = new footWhacker("MID", 3*height/4);
+            b2 = new footWhacker("MID", lerpIncrement);
 
             if (filledLane =="MID") {
               b2.big = true;
