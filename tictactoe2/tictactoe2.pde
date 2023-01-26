@@ -37,11 +37,14 @@ void draw() {
 
   drawCornerCompass();
 
-  drawCubes();
+  drawCube();
 
   drawCenterAxis();
   
-  println(winner());
+ // println(winner());
+  
+  
+  
 }
 
 
@@ -70,7 +73,7 @@ void keyPressed() {
   } else if ((key == ' ')&&(cubes[(int)selector.x][(int)selector.y][(int)selector.z] == 0)) {
     if (turn.equals("ORANGE")) {
       cubes[(int)selector.x][(int)selector.y][(int)selector.z] = 2;
-      turn ="PURPLE";
+     // turn ="PURPLE";
     } else if (turn.equals("PURPLE")) {
       cubes[(int)selector.x][(int)selector.y][(int)selector.z] = 3;
       turn ="ORANGE";
