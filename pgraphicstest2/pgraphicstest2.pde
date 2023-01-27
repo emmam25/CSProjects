@@ -13,7 +13,7 @@ PVector selector = new PVector(0, 0, 0);
 
 void setup() {
   size(displayWidth, displayHeight, P3D);
-  pg = createGraphics(50,50, P3D);
+  pg = createGraphics(300,300, P3D);
   cam = new PeasyCam(this, 0, 0, 0, 200);
   cam.setWheelHandler(null);
   cam.setMinimumDistance(120);
@@ -26,18 +26,21 @@ void draw() {
   rotations = cam.getRotations();
   pg.beginDraw();
   pg.background(100);
-  pg.translate(0,0);
-   drawCubes(pg);
+  pg.translate(pg.width/2, pg.height/2);
+  pg.rotateX(rotations[0]*-1);
+  pg.rotateY(rotations[1]*-1);
+  pg.rotateZ(rotations[2]*-1);
+  drawCubes(pg);
   pg.endDraw();
   pushMatrix();
   rotateX(rotations[0]);
   rotateY(rotations[1]);
   rotateZ(rotations[2]);
-  image(pg, -100, -100);
+  image(pg, -150,-150);
   popMatrix();
 
   pg.loadPixels();
-  println(pg.pixels[100]);
+  println(mouseX);
   
   
 
@@ -45,10 +48,8 @@ void draw() {
 
 
 void drawCubes(PGraphics thisg) {
-  thisg.rotateX(rotations[0]*-1);
-  thisg.rotateY(rotations[1]*-1);
-  thisg.rotateZ(rotations[2]*-1);
-  for (int i = 0; i<4; i++) {
+  
+ for (int i = 0; i<4; i++) {
     for (int j = 0; j<4; j++) {
       for (int k =0; k<4; k++) {
 
@@ -79,5 +80,6 @@ void drawCubes(PGraphics thisg) {
         thisg.popMatrix();
       }
     }
-  }
+ }
+
 }

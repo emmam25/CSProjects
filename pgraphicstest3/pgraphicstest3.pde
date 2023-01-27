@@ -1,3 +1,34 @@
+import peasy.*;
+
+GraphicsManager gm ;
+
+int[][][] cubes = new int[4][4][4];
+
+PVector selector = new PVector(0, 0, 0);
+
+
+float[] rotations;
+
+PeasyCam cam;
+
+
+void setup() {
+  size(displayWidth, displayHeight, P3D);
+
+  cam = new PeasyCam(this, 0, 0, 0, 200);
+  gm = new GraphicsManager();
+  
+
+}
+
+void draw() {
+  background(0);
+  gm.run();
+  
+  PVector hello = gm.getSelectedCube(mouseX, mouseY);
+  println(hello);
+  
+}
 void drawCubes(PGraphics thisg) {
   thisg.background(0);
   for (int i = 0; i<4; i++) {
@@ -9,9 +40,9 @@ void drawCubes(PGraphics thisg) {
         } else if (cubes[i][j][k] == 0) {
             thisg.fill(255-i,255-j,255-k);
         } else if (cubes[i][j][k] == 2) {
-          thisg.fill(orange);
+    //      thisg.fill(orange);
         } else if (cubes[i][j][k] == 3) {
-          thisg.fill(purple);
+   //       thisg.fill(purple);
         }
         
         thisg.pushMatrix();
