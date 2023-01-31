@@ -1,6 +1,9 @@
 
 //I am not using these functions because the selector is now the mouse
+//these can be ignored no one cares
 
+
+/*
 void drawCornerCompass() {
   rotations = cam.getRotations();
 
@@ -50,3 +53,4 @@ void drawCenterAxis() {
   text("o", 0, 0, -50);
   stroke(0);
 }
+*/

@@ -31,27 +31,28 @@ void setup() {
     }
   }
   gm = new GraphicsManager();
-  fill(255);
 }
 
 
 void draw() {
-  //background(0);
+  
   gm.run();
+  
+
   drawCubes(g);
 
   displayText();
 
 
   PVector hold = gm.getSelectedCube(mouseX, mouseY);
-  if (hold.x!=-1) {
+  if (hold.x!=-1) { //to avoid indexoutofbounds
     selector = hold;
   }
-  
 }
 
 
 void keyPressed() {
+  //use '0' to refresh the cube and start over
   if (key == '0') {
     for (int i=0; i<4; i++) {
       for (int j = 0; j<4; j++) {
@@ -61,8 +62,9 @@ void keyPressed() {
       }
     }
   }
+  
   //check if the cube is empty before filling it
-  else if ((key == ' ')&&(cubes[(int)selector.x][(int)selector.y][(int)selector.z] == 0)) {
+  else if ((key == ' ') && (cubes[(int)selector.x][(int)selector.y][(int)selector.z] == 0)) {
     if (turn.equals("ORANGE")) {
       cubes[(int)selector.x][(int)selector.y][(int)selector.z] = 2;
       turn ="PURPLE";
@@ -71,6 +73,7 @@ void keyPressed() {
       turn ="ORANGE";
     }
   }
+  //limit the selector
   if (selector.x >3) {
     selector.x=3;
   }

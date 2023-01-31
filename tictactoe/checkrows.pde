@@ -1,5 +1,5 @@
+//checks one row of 4 cubes to see if its four in a row
 String checkRow(int[] row) {
-  //checks one row
   int product = 1;
   for (int i : row) {
     product*=i;
