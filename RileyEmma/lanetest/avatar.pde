@@ -11,7 +11,7 @@ class avatar {
   avatar(PApplet p) {
     pos = new PVector(5*width/6, width/2);
     running = new Gif (p, "running.gif");
-    //running.play();
+    running.play();
   //  ducking = new Gif(p, "ducking.gif");
   }
 

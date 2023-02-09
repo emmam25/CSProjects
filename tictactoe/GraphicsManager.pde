@@ -7,26 +7,26 @@ class GraphicsManager {
     buffer = createGraphics(width, height, P3D);
   }
 
-  void run() {
+  void run(PVector selector) {
     buffer.beginDraw();
-    drawCubes(buffer);
+    drawCubes(buffer, selector);
     buffer.endDraw();
 
     cam.getState().apply(buffer);
 
 
     buffer.loadPixels();
-    
+
     //displays the image
     /* cam.beginHUD();
      image(buffer, 0, 0);
      cam.endHUD();*/
   }
 
-  PVector getSelectedCube(int mousex, int mousey) {
+  PVector getSelectedCube(int mousex, int mousey, int[][][] cubes) {
     //if there is no cube selected, return -1
     PVector cubeIndex= new PVector(-1, -1, -1);
-    
+
     if (mousex<0) {
       mousex =0;
     } else if (mousex>width) {
@@ -40,7 +40,7 @@ class GraphicsManager {
     color c = buffer.pixels[mousey*width + mousex];
 
     buffer.loadPixels();
-    
+
     //find the cube with the right color
     for (int r= 0; r<cubes.length; r++) {
       for (int b=0; b<cubes.length; b++) {

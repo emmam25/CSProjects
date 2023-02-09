@@ -5,9 +5,9 @@ String checkRow(int[] row) {
     product*=i;
   }
   if (product == 16) {
-    return "ORANGE";
+    return "FIRST";
   } else if (product == 81) {
-    return "PURPLE";
+    return "SECOND";
   }
   return null;
 }

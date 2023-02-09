@@ -1,9 +1,5 @@
-void displayText() {
-  if (turn.equals("ORANGE")) {
-    fill(orange);
-  } else {
-    fill(purple);
-  }
+void displayText(String turn) {
+  fill(255);
   textSize(12);
   rotations = cam.getRotations();
   pushMatrix();
@@ -11,24 +7,19 @@ void displayText() {
   rotateX(rotations[0]);
   rotateY(rotations[1]);
   rotateZ(rotations[2]);
-  translate(-100, -100, 0);
+  translate(-50, -70, 0);
   text("It is the " + turn + " player's turn", 0, 0, 0);
   popMatrix();
 
   String winner = winner();
   if (winner != null) {
-    if (winner.equals("ORANGE")) {
-      fill(orange);
-    } else if (winner.equals("PURPLE")) {
-      fill(purple);
-    }
     pushMatrix();
     rotateX(rotations[0]);
     rotateY(rotations[1]);
     rotateZ(rotations[2]);
-    translate(-100, 100, 0);
+    translate(-100, 70, 0);
     textSize(12);
-    text("The winner is " + winner + "!", 0, 0, 0);
+    text("The winner is the " + winner + " player!", 0, 0, 0);
     popMatrix();
   }
 
@@ -37,12 +28,13 @@ void displayText() {
   rotateX(rotations[0]);
   rotateY(rotations[1]);
   rotateZ(rotations[2]);
-  translate(-170, -50, 0);
+  translate(-130, -50, 0);
   textSize(6);
   fill(255);
   text("Welcome to 3D tic tac toe! \n" +
-    "- Hold and drag the mouse to move the cube\n" +
-    "- Hover over a cube and click the space \nbar to select it\n" +
+    "- Hold and drag the mouse \n to move the cube\n" +
+    "- Hover over a cube and click\n the space bar to select it\n" +
+    "-Press u to undo\n" +
     "- Get 4 in a row to win!", 0, 0, 0);
   popMatrix();
 }
