@@ -58,6 +58,13 @@ class SelectColor extends GameState {
     textSize(5);
     text("5", 0, 10);
     popMatrix();
+    
+    pushMatrix();
+    translate(-50, -50);
+    shape(sodacan,0,0);
+    textSize(5);
+    text("6", 0, 10);
+    popMatrix();
 
     popMatrix();
     return done;
@@ -73,6 +80,8 @@ class SelectColor extends GameState {
       setShell("fish");
     } else if(key == '5'){
       setShell("houseplant");
+    } else if(key == '6'){
+      setShell("sodacan");
     }
   }
 

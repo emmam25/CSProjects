@@ -43,6 +43,8 @@ void drawUnit(PGraphics thisg, float x, float y, float z, String shell) {
     s = fish;
   } else if (shell == "houseplant") {
     s = houseplant;
+  } else if(shell == "sodacan"){
+    s = sodacan;
   }
   if(s!=null){
   thisg.pushMatrix();

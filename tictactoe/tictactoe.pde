@@ -25,7 +25,7 @@ ArrayList<GameState> gamestates;
 int place =0;
 
 
-PShape cat, fish, houseplant;
+PShape cat, fish, houseplant, sodacan;
 
 
 void setup() {
@@ -53,6 +53,9 @@ void setup() {
   houseplant = loadShape("houseplant.obj");
   houseplant.scale(0.4);
   houseplant.rotateX(PI); //the houseplant was upside down when I imported it
+  
+  sodacan = loadShape("sodacan.obj");
+  sodacan.scale(1.2);
 }
 
 
