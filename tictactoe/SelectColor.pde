@@ -7,6 +7,7 @@ class SelectColor extends GameState {
   boolean run() {
     background(0);
     rotations = cam.getRotations();
+    
     pushMatrix();
 
     rotateX(rotations[0]);
@@ -25,7 +26,7 @@ class SelectColor extends GameState {
     textSize(5);
     text("1", 0, 10);
     popMatrix();
-
+ 
     pushMatrix();
     translate(-100, -25);
     fill(purple);

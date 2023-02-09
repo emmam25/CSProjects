@@ -1,3 +1,5 @@
+//this class manages the offscreen buffer
+//it tells you which cube the mouse is on
 class GraphicsManager {
 
   PGraphics buffer;

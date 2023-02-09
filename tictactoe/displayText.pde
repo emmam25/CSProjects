@@ -11,6 +11,7 @@ void displayText(String turn) {
   text("It is the " + turn + " player's turn", 0, 0, 0);
   popMatrix();
 
+
   String winner = winner();
   if (winner != null) {
     pushMatrix();

@@ -2,7 +2,7 @@ import peasy.*;
 
 PeasyCam cam;
 
-SelectColor selectcolor;
+SelectColor selectcolor; 
 
 PlayGame level1;
 
@@ -42,24 +42,25 @@ void setup() {
   gamestates = new ArrayList<GameState>();
   gamestates.add(selectcolor);
   gamestates.add(level1);
-  
+
   cat = loadShape("bot.obj");
   cat.scale(0.3);
-  cat.translate(0,0,0);
-  
+  cat.translate(0, 0, 0);
+
   fish = loadShape("fish.obj");
   fish.scale(10.0);
-  
+
   houseplant = loadShape("houseplant.obj");
   houseplant.scale(0.4);
-    houseplant.rotateX(PI);
+  houseplant.rotateX(PI); //the houseplant was upside down when I imported it
 }
 
 
 void draw() {
-  if(gamestates.get(place).run()){
+  if (gamestates.get(place).run()) {
     place++;
-  } if(place>1){
+  }
+  if (place>1) {
     exit();
   }
 }
