@@ -4,9 +4,6 @@ class PlayGame extends GameState {
 
   String turn = "FIRST";
 
-  //holds the previous moves so you can undo
-  ArrayList<int[][][]> time = new ArrayList<int[][][]>();
-
   PlayGame() {
 
     for (int i = 0; i<4; i++) {
@@ -76,6 +73,8 @@ class PlayGame extends GameState {
         cubes[(int)selector.x][(int)selector.y][(int)selector.z] = 3;
         turn ="FIRST";
       }
+    } else if(key == 'r'){
+      done = true;
     }
 
     //limit the selector

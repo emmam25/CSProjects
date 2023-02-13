@@ -36,6 +36,6 @@ void displayText(String turn) {
     "- Hold and drag the mouse \n to move the cube\n" +
     "- Hover over a cube and click\n the space bar to select it\n" +
     "-Press u to undo\n" +
-    "- Get 4 in a row to win!", 0, 0, 0);
+    "- Get 4 in a row to win! \n -Press r to show a replay of \n your game", 0, 0, 0);
   popMatrix();
 }

@@ -2,15 +2,20 @@ import peasy.*;
 
 PeasyCam cam;
 
-SelectColor selectcolor; 
+SelectColor selectcolor;
 
 PlayGame level1;
 
 GraphicsManager gm;
 
+ShowReplay replay;
+
 float[] rotations;
 //holds the state of each cube in the game
 int[][][] cubes = new int[4][4][4];
+
+//holds the previous moves so you can undo
+ArrayList<int[][][]> time = new ArrayList<int[][][]>();
 
 
 color purple = color(160, 0, 255);
@@ -40,9 +45,12 @@ void setup() {
 
   level1 = new PlayGame();
 
+  replay = new ShowReplay();
+
   gamestates = new ArrayList<GameState>();
   gamestates.add(selectcolor);
   gamestates.add(level1);
+  gamestates.add(replay);
 
   cat = loadShape("bot.obj");
   cat.scale(0.3);
@@ -54,7 +62,7 @@ void setup() {
   houseplant = loadShape("houseplant.obj");
   houseplant.scale(0.4);
   houseplant.rotateX(PI); //the houseplant was upside down when I imported it
-  
+
   sodacan = loadShape("sodacan.obj");
   sodacan.scale(1.2);
 }
@@ -63,9 +71,12 @@ void setup() {
 void draw() {
   if (gamestates.get(place).run()) {
     place++;
-  }
-  if (place>1) {
-    exit();
+    if (place>=gamestates.size()) {
+      exit();
+    }
+    if (place == gamestates.size()-1) {
+      replay.startTimer();
+    }
   }
 }
 
