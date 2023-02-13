@@ -9,6 +9,7 @@ PlayGame level1;
 GraphicsManager gm;
 
 float[] rotations;
+//holds the state of each cube in the game
 int[][][] cubes = new int[4][4][4];
 
 
