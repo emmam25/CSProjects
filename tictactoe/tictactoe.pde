@@ -72,7 +72,7 @@ void draw() {
   if (gamestates.get(place).run()) {
     place++;
     if (place>=gamestates.size()) {
-      exit();
+      place = gamestates.size()-1;
     }
     if (place == gamestates.size()-1) {
       replay.startTimer();

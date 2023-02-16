@@ -1,4 +1,5 @@
 String winner() {
+  //there are 76 ways to win (I think)
   String result;
 
   //check the flat rows (only changing along one axis, other two are constant)

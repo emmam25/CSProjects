@@ -1,23 +1,28 @@
-class ShowReplay extends GameState{
+class ShowReplay extends GameState {
   float timePassed;
   float startTime;
+  //which move you are on in the arraylist
   int place = 0;
-  ShowReplay(){}
-  boolean run(){
+  ShowReplay() {
+  }
+  boolean run() {
     timePassed = millis() - startTime;
-    if(timePassed >=1000){
+    //switch the move every second
+    if (timePassed >=1000) {
       startTime = millis();
       place ++;
+      if (place >= time.size()) {
+        place = 0;
+        done = true;
+      }
     }
-    if(place >= time.size()){
-      place = 0;
-      done = true;
-    }
+
     cubes = time.get(place);
-    drawCubes(g, new PVector(-1,-1,-1));
+    drawCubes(g, new PVector(-1, -1, -1));
+
     return done;
   }
-  void startTimer(){
+  void startTimer() {
     startTime = millis();
   }
 }
