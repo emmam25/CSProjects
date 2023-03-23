@@ -67,10 +67,23 @@ class KinectManager {
       color c = color(gridImage.pixels[i]);
       gridArray[i] = map(red(c), 0, 255, min, max);
     }
-
-    image(display, 0, 0, width, height);
   }
 
+
+  void rainbow() {
+    depth = kinect.getRawDepth();
+    display.loadPixels();
+
+    for (int i = 0; i<depth.length; i++) {
+      colorMode(HSB);
+      float value2 = map(depth[i], min, max, 0, 400);
+      display.pixels[i] = color(value2, 200, 100);
+      colorMode(RGB);
+    }
+
+    display.updatePixels();
+    image(display, 0, 0, width, height);
+  }
   void assignVectorField() {
     for (int i = 0; i<vectorArray.length; i++) {
       vectorArray[i] = new PVector(0, 0, 0);
