@@ -4,6 +4,7 @@ import org.openkinect.processing.*;
 import org.openkinect.tests.*;
 KinectManager kinectManager;
 ArrayList<ParticleSystem> systems = new ArrayList<ParticleSystem>();
+PVector clickedPlace;
 
 
 float s; //scale factor for the grid
@@ -14,24 +15,35 @@ void setup() {
   colorMode(RGB, 255);
   s=10;
   kinectManager = new KinectManager(this);
+  clickedPlace = new PVector(0, 0);
 
 
   gridScale = map(s, 0, kinectManager.kinect.width, 0, width);
-  println(gridScale);
 }
 void draw() {
   kinectManager.run();
+  //kinectManager.mountains();
   kinectManager.rainbow();
   kinectManager.assignVectorField();
   showVectors();
-  for(ParticleSystem s: systems){
+  for (ParticleSystem s : systems) {
     s.runParticles();
   }
 }
 
-void mouseClicked(){
+void mouseClicked() {
   ParticleSystem system = new ParticleSystem(new PVector(mouseX, mouseY));
   systems.add(system);
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    fill(255);
+    clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);
+    clickedPlace.y = kinectManager.findClicker().y*(height/(float)kinectManager.kinect.height);
+    ParticleSystem system = new ParticleSystem(new PVector(clickedPlace.x, clickedPlace.y));
+    systems.add(system);
+  }
 }
 
 void showVectors() {

@@ -6,7 +6,7 @@ class KinectManager {
 
   Kinect kinect;
 
-  int min, max;
+  int min, max, clickValue;
 
 
   KinectManager(PApplet p) {
@@ -20,6 +20,7 @@ class KinectManager {
 
     min = 700;
     max = 800;
+    clickValue = 600;
 
     //holds the forces on each area of the grid
     vectorArray = new PVector[(int)((kinect.width/s) * (kinect.height/s))];
@@ -71,7 +72,6 @@ class KinectManager {
 
 
   void rainbow() {
-    depth = kinect.getRawDepth();
     display.loadPixels();
 
     for (int i = 0; i<depth.length; i++) {
@@ -79,6 +79,27 @@ class KinectManager {
       float value2 = map(depth[i], min, max, 0, 400);
       display.pixels[i] = color(value2, 200, 100);
       colorMode(RGB);
+      if (depth[i] <clickValue) {
+        display.pixels[i] = color(255, 255, 255);
+      }
+    }
+
+    display.updatePixels();
+    image(display, 0, 0, width, height);
+  }
+
+  void mountains() {
+    display.loadPixels();
+
+    for (int i = 0; i<depth.length; i++) {
+      int value = depth[i];
+      if (value <clickValue) {
+        display.pixels[i] = color(255, 255, 255);
+      } else if(value>min && value<min+50){
+        display.pixels[i] = color(0, 255, 0);
+      } else if(value>min+50 && value<max){
+        display.pixels[i] = color(0, 0, 255);
+      }
     }
 
     display.updatePixels();
@@ -126,5 +147,19 @@ class KinectManager {
         }
       }
     }
+  }
+
+  PVector findClicker() {
+    PVector clickedPlace = new PVector(0, 0);
+    for (int j = kinect.height-1; j >= 0; j--) {
+      for (int i = kinect.width-1; i >= 0; i--) {
+        if (depth[i + (j*kinect.width)] <= clickValue) {
+          clickedPlace.x = i;
+          clickedPlace.y = j;
+          return clickedPlace;
+        }
+      }
+    }
+    return clickedPlace;
   }
 }
