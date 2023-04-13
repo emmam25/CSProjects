@@ -8,19 +8,30 @@ class ParticleSystem {
   }
   void addParticles(int n) { //n is how many particles you want
     for (int i = 0; i<n; i++) {
-      Particle particle = new Particle(new PVector((pos.x)+random(-10, 10), (pos.y)+random(-10, 10)));
+      Particle particle = new Particle(new PVector((pos.x)+random(-n, n), (pos.y)+random(-n, n)));
       particles.add(particle);
     }
   }
   void runParticles() {
     if (alive) {
-      addParticles(10);
+      if (mode == "volcano") {
+        addParticles(50);
+      } else if(mode == "water"){
+        addParticles(10);
+      }
     }
     for (Particle particle : particles) {
       particle.run();
     }
     if ((particles.size()>1000)&&(mode!="volcano")) {
       alive = false;
+    }
+    if (mode == "volcano") {
+      for (int i = 0; i<particles.size(); i++) {
+        if (particles.get(i).lifeSpan<0) {
+          particles.remove(i);
+        }
+      }
     }
   }
 

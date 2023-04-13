@@ -10,7 +10,7 @@ ParticleSystem volcano;
 
 float s; //scale factor for the grid
 float gridScale;
-String mode = "volcano";
+String mode = "water";
 
 void setup() {
   fullScreen();
@@ -30,9 +30,9 @@ void setup() {
 void draw() {
   kinectManager.run();
   // kinectManager.mountains();
-  kinectManager.rainbow();
+  //kinectManager.rainbow();
   //kinectManager.grayScale();
-  //kinectManager.allBlack();
+  kinectManager.allGrey();
   kinectManager.assignVectorField();
   showVectors();
   for (ParticleSystem s : systems) {
@@ -54,7 +54,7 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  if (mode == "clicker") {
+  if (mode == "water") {
     if (key == ' ') {
       fill(255);
       clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);

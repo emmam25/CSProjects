@@ -1,30 +1,37 @@
-class Particle{
+class Particle {
   PVector pos; //position IN TERMS OF THE SCREEN
   PVector gridCoordinate; //posiiton IN TERMS OF THE GRID
   PVector vel;
   PVector acc;
   color c;
-  
-  Particle(PVector pos){
+  int lifeSpan = 50;
+
+  Particle(PVector pos) {
     this.pos = pos;
-    vel = new PVector(0,0);
-    acc = new PVector(0,0);
-    gridCoordinate = new PVector(0,0);
-    c = color(0, random(100), random(255), 100);
+    vel = new PVector(0, 0);
+    acc = new PVector(0, 0);
+    gridCoordinate = new PVector(0, 0);
+    if (mode == "water") {
+      c = color(0, random(100), random(100, 255));
+    } else if (mode == "volcano") {
+      c = color(random(100, 255), random(100), 0);
+    }
   }
-  
-  void run(){
+
+  void run() {
+    lifeSpan --;
+
     //wrap around
-    if(pos.x >width-100){
+    if (pos.x >width-100) {
       pos.x = 100;
-    } 
-    if(pos.x <100){
+    }
+    if (pos.x <100) {
       pos.x = width-100;
-    } 
-    if(pos.y >height-100){
+    }
+    if (pos.y >height-100) {
       pos.y = 100;
-    } 
-    if (pos.y<10){
+    }
+    if (pos.y<10) {
       pos.y = height-100;
     }
     //use position to calculate grid coordinate
@@ -38,7 +45,11 @@ class Particle{
     vel.limit(3);
     //draw ellipse at pos
     noStroke();
-    fill(c);
-    ellipse(pos.x, pos.y, 10,10);
+    if (mode == "volcano") {
+      fill(c, lifeSpan*10);
+    } else if(mode == "water"){
+      fill(c);
+    }
+    rect(pos.x, pos.y, 10, 10);
   }
 }

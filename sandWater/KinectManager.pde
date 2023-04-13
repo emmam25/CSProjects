@@ -121,7 +121,7 @@ class KinectManager {
     image(display, 0, 0, width, height);
   }
 
-  void allBlack() {
+  void allGrey() {
     display.loadPixels();
 
     for (int i = 0; i<depth.length; i++) {
@@ -129,7 +129,7 @@ class KinectManager {
       if (depth[i] <clickValue) {
         display.pixels[i] = color(255, 255, 255);
       } else {
-        display.pixels[i] = color(0);
+        display.pixels[i] = color(100);
       }
     }
 
