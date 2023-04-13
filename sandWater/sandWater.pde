@@ -10,7 +10,7 @@ ParticleSystem volcano;
 
 float s; //scale factor for the grid
 float gridScale;
-String mode = "clicker";
+String mode = "volcano";
 
 void setup() {
   fullScreen();
@@ -42,9 +42,8 @@ void draw() {
   if (mode == "volcano") {
     volcanoPlace.x =kinectManager.findVolcano().x*(width/(float)(kinectManager.kinect.width/s));
     volcanoPlace.y = kinectManager.findVolcano().y*(height/(float)(kinectManager.kinect.height/s));
-    if (clickedPlace.x != -1) {
+    if (volcanoPlace.x != -1) {
       volcano.move(volcanoPlace);
-      println(width/(float)(kinectManager.kinect.width/s));
     }
   }
 }

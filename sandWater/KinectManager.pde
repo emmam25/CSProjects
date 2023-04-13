@@ -183,8 +183,8 @@ class KinectManager {
   PVector findVolcano() { //finds highest average area
     PVector volcano = new PVector(-1, -1);
     float minDepth = max;
-    for (int j = (int)(kinect.height/s)-2; j >= 2; j--) {
-      for (int i = (int)(kinect.width/s)-2; i >= 2; i--) {
+    for (int j = (int)(kinect.height/s)-5; j >= 5; j--) {
+      for (int i = (int)(kinect.width/s)-5; i >= 5; i--) {
         if (gridArray[i + (j*(int)(kinect.width/s))] <= minDepth) {
           minDepth = gridArray[i + (j*(int)(kinect.width/s))];
           volcano.x = i;
