@@ -4,11 +4,13 @@ import org.openkinect.processing.*;
 import org.openkinect.tests.*;
 KinectManager kinectManager;
 ArrayList<ParticleSystem> systems = new ArrayList<ParticleSystem>();
-PVector clickedPlace;
+PVector clickedPlace, volcanoPlace;
+ParticleSystem volcano;
 
 
 float s; //scale factor for the grid
 float gridScale;
+String mode = "clicker";
 
 void setup() {
   fullScreen();
@@ -16,18 +18,34 @@ void setup() {
   s=10;
   kinectManager = new KinectManager(this);
   clickedPlace = new PVector(0, 0);
+  volcanoPlace = new PVector(0, 0);
 
 
   gridScale = map(s, 0, kinectManager.kinect.width, 0, width);
+  if (mode == "volcano") {
+    volcano = new ParticleSystem(new PVector(0, 0));
+    systems.add(volcano);
+  }
 }
 void draw() {
   kinectManager.run();
-  //kinectManager.mountains();
+  // kinectManager.mountains();
   kinectManager.rainbow();
+  //kinectManager.grayScale();
+  //kinectManager.allBlack();
   kinectManager.assignVectorField();
   showVectors();
   for (ParticleSystem s : systems) {
     s.runParticles();
+  }
+
+  if (mode == "volcano") {
+    volcanoPlace.x =kinectManager.findVolcano().x*(width/(float)(kinectManager.kinect.width/s));
+    volcanoPlace.y = kinectManager.findVolcano().y*(height/(float)(kinectManager.kinect.height/s));
+    if (clickedPlace.x != -1) {
+      volcano.move(volcanoPlace);
+      println(width/(float)(kinectManager.kinect.width/s));
+    }
   }
 }
 
@@ -37,12 +55,19 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  if (key == ' ') {
-    fill(255);
-    clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);
-    clickedPlace.y = kinectManager.findClicker().y*(height/(float)kinectManager.kinect.height);
-    ParticleSystem system = new ParticleSystem(new PVector(clickedPlace.x, clickedPlace.y));
-    systems.add(system);
+  if (mode == "clicker") {
+    if (key == ' ') {
+      fill(255);
+      clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);
+      clickedPlace.y = kinectManager.findClicker().y*(height/(float)kinectManager.kinect.height);
+      if (clickedPlace.x != -1) {
+        ParticleSystem system = new ParticleSystem(new PVector(clickedPlace.x, clickedPlace.y));
+        systems.add(system);
+      }
+    }
+  }
+  if (key == 'r') {
+    systems.clear();
   }
 }
 

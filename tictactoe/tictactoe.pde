@@ -65,8 +65,8 @@ void setup() {
 
   sodacan = loadShape("sodacan.obj");
   sodacan.scale(1.2);
+  sodacan.rotateY(PI/2);
 }
-
 
 void draw() {
   if (gamestates.get(place).run()) {
@@ -79,7 +79,6 @@ void draw() {
     }
   }
 }
-
 
 void keyPressed() {
   gamestates.get(place).keyPressed();

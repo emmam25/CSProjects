@@ -89,7 +89,7 @@ class SelectColor extends GameState {
     if (whoIsPicking.equals("FIRST")) {
       firstShell = cubeColor;
       whoIsPicking = "SECOND";
-    } else {
+    } else if(firstShell !=cubeColor) {
       secondShell = cubeColor;
       done = true;
     }

@@ -3,12 +3,14 @@ class Particle{
   PVector gridCoordinate; //posiiton IN TERMS OF THE GRID
   PVector vel;
   PVector acc;
+  color c;
   
   Particle(PVector pos){
     this.pos = pos;
     vel = new PVector(0,0);
     acc = new PVector(0,0);
     gridCoordinate = new PVector(0,0);
+    c = color(0, random(100), random(255), 100);
   }
   
   void run(){
@@ -36,7 +38,7 @@ class Particle{
     vel.limit(3);
     //draw ellipse at pos
     noStroke();
-    fill(0, 0, 255);
+    fill(c);
     ellipse(pos.x, pos.y, 10,10);
   }
 }

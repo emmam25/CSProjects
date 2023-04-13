@@ -95,10 +95,41 @@ class KinectManager {
       int value = depth[i];
       if (value <clickValue) {
         display.pixels[i] = color(255, 255, 255);
-      } else if(value>min && value<min+50){
+      } else if (value>min && value<min+50) {
         display.pixels[i] = color(0, 255, 0);
-      } else if(value>min+50 && value<max){
+      } else if (value>min+50 && value<max) {
         display.pixels[i] = color(0, 0, 255);
+      }
+    }
+
+    display.updatePixels();
+    image(display, 0, 0, width, height);
+  }
+
+  void grayScale() {
+    display.loadPixels();
+
+    for (int i = 0; i<depth.length; i++) {
+      float value = map(depth[i], min, max, 255, 0);
+      display.pixels[i] = color(value);
+      if (depth[i] <clickValue) {
+        display.pixels[i] = color(255, 255, 255);
+      }
+    }
+
+    display.updatePixels();
+    image(display, 0, 0, width, height);
+  }
+
+  void allBlack() {
+    display.loadPixels();
+
+    for (int i = 0; i<depth.length; i++) {
+
+      if (depth[i] <clickValue) {
+        display.pixels[i] = color(255, 255, 255);
+      } else {
+        display.pixels[i] = color(0);
       }
     }
 
@@ -149,8 +180,23 @@ class KinectManager {
     }
   }
 
-  PVector findClicker() {
-    PVector clickedPlace = new PVector(0, 0);
+  PVector findVolcano() { //finds highest average area
+    PVector volcano = new PVector(-1, -1);
+    float minDepth = max;
+    for (int j = (int)(kinect.height/s)-2; j >= 2; j--) {
+      for (int i = (int)(kinect.width/s)-2; i >= 2; i--) {
+        if (gridArray[i + (j*(int)(kinect.width/s))] <= minDepth) {
+          minDepth = gridArray[i + (j*(int)(kinect.width/s))];
+          volcano.x = i;
+          volcano.y = j;
+        }
+      }
+    }
+    return volcano;
+  }
+
+  PVector findClicker() { //finds the pointing hand
+    PVector clickedPlace = new PVector(-1, -1);
     for (int j = kinect.height-1; j >= 0; j--) {
       for (int i = kinect.width-1; i >= 0; i--) {
         if (depth[i + (j*kinect.width)] <= clickValue) {
