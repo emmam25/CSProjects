@@ -6,18 +6,20 @@ class ParticleSystem {
     this.pos = pos;
     particles = new ArrayList<Particle>();
   }
-  void addParticles(int n) { //n is how many particles you want
+  void addParticles(int n, int m) { //n is how many particles you want, m is how far apart they are
     for (int i = 0; i<n; i++) {
-      Particle particle = new Particle(new PVector((pos.x)+random(-n, n), (pos.y)+random(-n, n)));
+      Particle particle = new Particle(new PVector((pos.x)+random(-m, m), (pos.y)+random(-m, m)));
       particles.add(particle);
     }
   }
   void runParticles() {
     if (alive) {
       if (mode == "volcano") {
-        addParticles(50);
+        addParticles(50, 50);
       } else if(mode == "water"){
-        addParticles(10);
+        addParticles(10, 10);
+      } else if(mode == "ant"){
+        addParticles(1, 50);
       }
     }
     for (Particle particle : particles) {

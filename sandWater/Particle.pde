@@ -47,9 +47,18 @@ class Particle {
     noStroke();
     if (mode == "volcano") {
       fill(c, lifeSpan*10);
-    } else if(mode == "water"){
+    } else if (mode == "water") {
       fill(c);
     }
-    rect(pos.x, pos.y, 10, 10);
+    if (mode == "ant") {
+      pushMatrix();
+      translate(pos.x, pos.y);
+      rotate(vel.heading());
+      image(ant, 0, 0);
+      popMatrix();
+    } else {
+
+      ellipse(pos.x, pos.y, 10, 10);
+    }
   }
 }

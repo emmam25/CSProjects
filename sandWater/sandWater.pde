@@ -6,11 +6,12 @@ KinectManager kinectManager;
 ArrayList<ParticleSystem> systems = new ArrayList<ParticleSystem>();
 PVector clickedPlace, volcanoPlace;
 ParticleSystem volcano;
+PImage ant;
 
 
 float s; //scale factor for the grid
 float gridScale;
-String mode = "water";
+String mode = "ant";
 
 void setup() {
   fullScreen();
@@ -26,6 +27,9 @@ void setup() {
     volcano = new ParticleSystem(new PVector(0, 0));
     systems.add(volcano);
   }
+  
+  ant = loadImage("ant.png");
+  ant.resize(40,28);
 }
 void draw() {
   kinectManager.run();
@@ -54,7 +58,7 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  if (mode == "water") {
+  if (mode == "water" || mode == "ant") {
     if (key == ' ') {
       fill(255);
       clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);
