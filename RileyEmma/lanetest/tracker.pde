@@ -1,17 +1,26 @@
-class tracker{
-    int ducklineY;
+class tracker {
+  int ducklineY;
   int jumplineY;
   
-  tracker(){}
-  void display(){}
-  String lane(){
+  float locX;
+  
+  float kinectwidth = 640;
+
+  tracker() {
+  }
+  void display() {
+  }
+  String lane() {
     return null;
   }
-  boolean jumped(){
+  boolean jumped() {
     return false;
   }
-  boolean ducked(){
+  boolean ducked() {
     return false;
   }
-  void keyPressed(){}
+  
+  void track(){}
+  void keyPressed() {
+  }
 }

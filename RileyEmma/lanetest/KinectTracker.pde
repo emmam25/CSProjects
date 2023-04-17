@@ -1,10 +1,11 @@
-class KinectTracker extends tracker{
+class KinectTracker extends tracker {
   Kinect kinect;
   int minDepth, maxDepth;
 
   int[] depth;
   PImage display;
   PApplet p;
+ 
 
 
 
@@ -16,13 +17,15 @@ class KinectTracker extends tracker{
     kinect.initDepth();
 
     display = new PImage(kinect.width, kinect.height);
+    
+    locX = 0;
   }
 
   void display() {
     int[] rawDepth = kinect.getRawDepth();
     for (int x = 0; x < kinect.width; x++) {
       for (int y = 0; y < kinect.height; y++) {
-        
+
         // mirroring image
         int offset = (kinect.width - x - 1) + y * kinect.width;
 
@@ -32,25 +35,48 @@ class KinectTracker extends tracker{
 
           display.pixels[pix] = color(150, 50, 50, 200);
         } else {
-          display.pixels[pix] = color(0,0,0,1);
+          display.pixels[pix] = color(0, 0, 0, 1);
         }
       }
     }
     display.updatePixels();
     imageMode(CORNER);
     image(display, 0, 0, width, height);
-    /*these lines show you which lane to be in 
-    and where to jump and duck*/
+    /*these lines show you which lane to be in
+     and where to jump and duck*/
     stroke(255);
     strokeWeight(6);
     line(width/3, 0, width/3, height);
     line(2*width/3, 0, 2*width/3, height);
     stroke(0, 255, 0);
     line(0, ducklineY, width, ducklineY);
-    stroke(255,0,0);
-    line(0,jumplineY, width, jumplineY);
+    stroke(255, 0, 0);
+    line(0, jumplineY, width, jumplineY);
   }
-  
+  void track() {
+    int[] depth = kinect.getRawDepth();
+    float sumX = 0;
+    float count = 0;
+
+    for (int x = 0; x < kinect.width; x++) {
+      for (int y = 0; y < kinect.height; y++) {
+         // mirroring image
+        int offset = (kinect.width - x - 1) + y * kinect.width;
+        // Grabbing the raw depth
+        int rawDepth = depth[offset];
+
+        // Testing against threshold
+        if (rawDepth > minDepth && rawDepth < maxDepth) {
+          sumX += x;
+          count++;
+        }
+      }
+    }
+    // As long as we found something
+    if (count != 0) {
+      locX = sumX/count;
+    }
+  }
   //this function returns the lane you are in
   String lane() {
     int[] rawDepth = kinect.getRawDepth();

@@ -18,7 +18,7 @@ PImage background;
 
 
 void setup() {
-  background = loadImage("background.jpg");
+  background = loadImage("background.png");
   size(displayWidth, displayHeight);
   kt = new KinectTracker(this);
   keyt = new KeyTracker();

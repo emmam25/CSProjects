@@ -3,6 +3,7 @@ class KeyTracker extends tracker {
   String lane = "LEFT";
   boolean jumped = false;
   boolean ducked = false;
+  
 
   KeyTracker() {
   }
@@ -12,14 +13,18 @@ class KeyTracker extends tracker {
     if (keyCode == RIGHT) {
       if (lane == "LEFT") {
         lane = "MID";
+        locX = width/2;
       } else if (lane == "MID") {
         lane = "RIGHT";
+        locX = 5* (width/6);
       }
     } else if (keyCode == LEFT) {
       if(lane == "RIGHT"){
         lane = "MID";
+        locX = width/2;
       } else if(lane == "MID"){
         lane = "LEFT";
+        locX = width/6;
       }
     } else if (keyCode == UP) {
       if (ducked) {

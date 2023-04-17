@@ -19,7 +19,7 @@ class level1 extends gamestate {
 
 
   boolean run() {
-    lerpIncrement += lerpAcceleration; 
+    lerpIncrement += lerpAcceleration;
     for (int i = 0; i<obstacles.size(); i++) {
       //update and display all obstacles
       obstacles.get(i).run();
@@ -107,7 +107,7 @@ class level1 extends gamestate {
           //create a foot whacker if random is 2
         } else {
           if (random2 ==0 && filledLane !="LEFT") {
-            b2 = new footWhacker ("LEFT",  lerpIncrement);
+            b2 = new footWhacker ("LEFT", lerpIncrement);
             filledLane = "LEFT";
           } else if (random2 == 1 && filledLane !="RIGHT") {
             b2 = new footWhacker ("RIGHT", lerpIncrement);
@@ -126,8 +126,10 @@ class level1 extends gamestate {
         obstacles.add(b2);
       }
     }
+    float newX = kt.locX * ((float)width/kt.kinectwidth);
+    myavatar.run(newX, kt.ducked(), kt.jumped());
 
-     myavatar.run(kt.lane(), kt.ducked(), kt.jumped());
+    kt.track();
     kt.display();
     fill(255);
     text(kt.lane(), 100, 100);
@@ -138,8 +140,8 @@ class level1 extends gamestate {
     text("score: "+ score, 700, 100);
     return done;
   }
-  
-  void keyPressed(){
+
+  void keyPressed() {
     kt.keyPressed();
   }
 }

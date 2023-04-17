@@ -1,56 +1,39 @@
+//...it might be easier to just draw the avatar at the person's average location
+
 class avatar {
   PVector pos;
-  float vel = width/15;
-  //how far off the center of the lane the avatar can be
-  float safeZone = width/60;
-  ArrayList<PImage> costumes = new ArrayList<PImage>();
-  int frame;
 
-  Gif running;
+  Gif running, ducking, current, jumping;
 
   avatar(PApplet p) {
     pos = new PVector(5*width/6, width/2);
     running = new Gif (p, "running.gif");
     running.play();
-  //  ducking = new Gif(p, "ducking.gif");
+    current = running;
+    ducking = new Gif(p, "ducking.gif");
+    ducking.play();
+    jumping = new Gif(p, "jumping.gif");
+    jumping.play();
   }
 
-  void run(String newlane, boolean newducked, boolean newjumped) {
-    if (newlane == "RIGHT") {
-      if (pos.x > (5*width/6)+safeZone) {
-        pos.x-=vel;
-      } else if (pos.x<(5*width/6)-safeZone) {
-        pos.x+=vel;
-      }
-    } else  if (newlane == "LEFT") {
-      if (pos.x>(width/6) + safeZone) {
-        pos.x-=vel;
-      } else if (pos.x<(width/6) - safeZone) {
-        pos.x+=vel;
-      }
-    } else if (newlane == "MID") {
-      if (pos.x>(width/2) + safeZone) {
-        pos.x-=vel;
-      } else if (pos.x<(width/2) - safeZone){
-        pos.x += vel;
-      }
-    }
+  void run(float newX, boolean newducked, boolean newjumped) {
 
-    if (newducked) {
-      pos.y = height/2 + kt.ducklineY;
-    } else if (newjumped) {
-      pos.y = height/2 - kt.ducklineY;
-    } else {
+    pos.x = newX;
+
+    if (newducked == true) {
+      pos.y = height - (height/4);
+      current = ducking;
+    }
+    if (newjumped == true) {
+      pos.y = height/4;
+      current = jumping;
+    } else if (newjumped == false && newducked == false) {
       pos.y = height/2;
+      current = running;
     }
-  /*  noStroke();
-    fill(0, 255, 0);
-    ellipse(pos.x, pos.y, width/6, height);  */
-    image(running, pos.x, pos.y, width/6, height/2);
-
-    frame ++;
-    if (frame>costumes.size()) {
-      frame =0;
-    }
+    /*  noStroke();
+     fill(0, 255, 0);
+     ellipse(pos.x, pos.y, width/6, height);  */
+    image(current, pos.x, pos.y, width/6, height/2);
   }
 }
