@@ -5,8 +5,10 @@ class Particle {
   PVector acc;
   color c;
   int lifeSpan = 50;
+  
+  String mode;
 
-  Particle(PVector pos) {
+  Particle(PVector pos, String mode) {
     this.pos = pos;
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
@@ -16,6 +18,8 @@ class Particle {
     } else if (mode == "volcano") {
       c = color(random(100, 255), random(100), 0);
     }
+    
+    this.mode = mode;
   }
 
   void run() {
@@ -39,6 +43,11 @@ class Particle {
     gridCoordinate.y = (int)map (pos.y, 0, height, 0, kinectManager.gridImage.height);
 
     acc = (kinectManager.vectorArray[(int)(gridCoordinate.x + (gridCoordinate.y*kinectManager.gridImage.width))]);
+    
+    if(mode == "ant"){ //ants go uphill, they're hard workers
+      acc.x = -acc.x;
+      acc.y = -acc.y;
+    }
     //add acc to vel and vel to pos
     vel.add(acc);
     pos.add(vel);

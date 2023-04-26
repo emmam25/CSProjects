@@ -1,3 +1,8 @@
+/*note - the clicker (for water and ants) might not work
+ unless you remove the physical volcano because it will think that
+ the volcano is the clicker
+ */
+
 import org.openkinect.freenect.*;
 import org.openkinect.freenect2.*;
 import org.openkinect.processing.*;
@@ -8,10 +13,13 @@ PVector clickedPlace, volcanoPlace;
 ParticleSystem volcano;
 PImage ant;
 
+boolean volcanoOn = true;
+boolean vectorsOn = false;
+int land = 0; //what mode the land is in
+
 
 float s; //scale factor for the grid
 float gridScale;
-String mode = "ant";
 
 void setup() {
   fullScreen();
@@ -23,54 +31,81 @@ void setup() {
 
 
   gridScale = map(s, 0, kinectManager.kinect.width, 0, width);
-  if (mode == "volcano") {
-    volcano = new ParticleSystem(new PVector(0, 0));
-    systems.add(volcano);
-  }
-  
+  volcano = new ParticleSystem(new PVector(0, 0), "volcano");
+  systems.add(volcano);
+
   ant = loadImage("ant.png");
-  ant.resize(40,28);
+  ant.resize(40, 28);
 }
 void draw() {
   kinectManager.run();
-  // kinectManager.mountains();
-  //kinectManager.rainbow();
-  //kinectManager.grayScale();
-  kinectManager.allGrey();
+  if (land == 0) {
+    kinectManager.allGrey();
+  } else if (land == 1) {
+    kinectManager.rainbow();
+  } else if (land == 2) {
+    kinectManager.grayScale();
+  }
   kinectManager.assignVectorField();
-  showVectors();
+  if (vectorsOn) {
+    showVectors();
+  }
   for (ParticleSystem s : systems) {
     s.runParticles();
   }
 
-  if (mode == "volcano") {
-    volcanoPlace.x =kinectManager.findVolcano().x*(width/(float)(kinectManager.kinect.width/s));
-    volcanoPlace.y = kinectManager.findVolcano().y*(height/(float)(kinectManager.kinect.height/s));
-    if (volcanoPlace.x != -1) {
-      volcano.move(volcanoPlace);
-    }
+  volcanoPlace.x =kinectManager.findVolcano().x*(width/(float)(kinectManager.kinect.width/s));
+  volcanoPlace.y = kinectManager.findVolcano().y*(height/(float)(kinectManager.kinect.height/s));
+  if (volcanoPlace.x != -1) {
+    volcano.move(volcanoPlace);
   }
 }
 
 void mouseClicked() {
-  ParticleSystem system = new ParticleSystem(new PVector(mouseX, mouseY));
+  ParticleSystem system = new ParticleSystem(new PVector(mouseX, mouseY), "water");
   systems.add(system);
 }
 
 void keyPressed() {
-  if (mode == "water" || mode == "ant") {
-    if (key == ' ') {
-      fill(255);
-      clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);
-      clickedPlace.y = kinectManager.findClicker().y*(height/(float)kinectManager.kinect.height);
-      if (clickedPlace.x != -1) {
-        ParticleSystem system = new ParticleSystem(new PVector(clickedPlace.x, clickedPlace.y));
-        systems.add(system);
-      }
+
+  if (key == ' ') {
+    fill(255);
+    clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);
+    clickedPlace.y = kinectManager.findClicker().y*(height/(float)kinectManager.kinect.height);
+    if (clickedPlace.x != -1) {
+      ParticleSystem system = new ParticleSystem(new PVector(clickedPlace.x, clickedPlace.y), "water");
+      systems.add(system);
     }
-  }
-  if (key == 'r') {
+  } else if (key == 'a') {
+    fill(255);
+    clickedPlace.x =kinectManager.findClicker().x*(width/(float)kinectManager.kinect.width);
+    clickedPlace.y = kinectManager.findClicker().y*(height/(float)kinectManager.kinect.height);
+    if (clickedPlace.x != -1) {
+      ParticleSystem system = new ParticleSystem(new PVector(clickedPlace.x, clickedPlace.y), "ant");
+      systems.add(system);
+    }
+  } else if (key == 'v') {
+    if (volcanoOn) {
+      volcanoOn = false;
+      systems.remove(volcano);
+    } else {
+      volcanoOn = true;
+      systems.add(volcano);
+    }
+  } else if (keyCode == RIGHT) {
+    land ++;
+    if (land>2) {
+      land = 0;
+    }
+  } else if (keyCode == '/') {
+    if (vectorsOn) {
+      vectorsOn = false;
+    } else {
+      vectorsOn = true;
+    }
+  } else if (key == 'r') {
     systems.clear();
+    volcanoOn = false;
   }
 }
 

@@ -127,10 +127,11 @@ class level1 extends gamestate {
       }
     }
     float newX = kt.locX * ((float)width/kt.kinectwidth);
-    myavatar.run(newX, kt.ducked(), kt.jumped());
+
 
     kt.track();
     kt.display();
+    myavatar.run(newX, kt.ducked(), kt.jumped());
     fill(255);
     text(kt.lane(), 100, 100);
     String d = str(kt.ducked());
