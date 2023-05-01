@@ -5,7 +5,7 @@ void drawCubes(PGraphics thisg, PVector selector) {
     for (int j = 0; j<4; j++) {
       for (int k =0; k<4; k++) {
         thisg.strokeWeight(3);
-        if (i == (int)selector.x && j == (int)selector.y && k == (int)selector.z) {
+        if ((i == (int)selector.x && j == (int)selector.y && k == (int)selector.z) && (cubes[i][j][k] == 0)) {
           thisg.fill(0, 255, 0);
           thisg.pushMatrix();
           //I am translating like this so that the

@@ -75,6 +75,7 @@ class PlayGame extends GameState {
         turn ="FIRST";
       }
     } else if(key == 'r'){
+      saveMove();
       done = true;
     }
 
