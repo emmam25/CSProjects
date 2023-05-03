@@ -5,12 +5,14 @@ import peasy.*;
 PVector pos;
 int size;
 
-PGraphics side1, side2, side3, side4;
+PGraphics side1, side2, side3, side4, side5, side6;
 
-float theta, phi;
+float theta, phi, angleX;
 
 Ball ball;
-
+Display1 display1;
+Display2 display2;
+Display3 display3;
 
 void setup() {
   size(displayWidth, displayHeight, P3D);
@@ -19,8 +21,15 @@ void setup() {
   imageMode(CENTER);
 
   side1 = createGraphics(size, size, P3D);
-  side2 = createGraphics(size,size,P3D);
-  ball = new Ball (new PVector (20,20), new PVector (3,2));
+  side2 = createGraphics(size, size, P3D);
+  side3 = createGraphics(size, size, P3D);
+  side4 = createGraphics(size, size, P3D);
+  side5 = createGraphics(size, size, P3D);
+  side6 = createGraphics(size, size, P3D);
+  ball = new Ball (new PVector (20, 20), new PVector (3, 2));
+  display1 = new Display1();
+  display2 = new Display2();
+  display3 = new Display3();
 }
 void draw() {
   background(255);
@@ -31,19 +40,25 @@ void draw() {
 
 
   ball.display(side1);
-  ball.display(side2);
+  display1.display(side2);
+  display2.display(side3);
+  display3.display(side4);
+  display2.display(side5);
+  display1.display(side6);
 
- 
 
   pushMatrix();
   translate(pos.x, pos.y, pos.z);
   rotateZ(phi);
   rotateY(theta);
+  rotateX(angleX);
+  fill(255);
+  box(size-1);
 
 
   //side 1
   pushMatrix();
-  translate(0,0,size/2);
+  translate(0, 0, size/2);
   fill(255, 0, 0);
   image(side1, 0, 0, size, size);
   popMatrix();
@@ -51,16 +66,16 @@ void draw() {
   //side 2
   pushMatrix();
   fill(0, 255, 0);
-  translate(0,0,-size/2);
+  translate(0, 0, -size/2);
   image(side2, 0, 0, size, size);
   popMatrix();
 
   //side 3
   pushMatrix();
   fill(0, 0, 255);
-  translate(0,size/2, 0);
+  translate(0, size/2, 0);
   rotateX(PI/2);
-  rect(0, 0, size, size);
+  image(side3, 0, 0, size, size);
   popMatrix();
 
   //side 4
@@ -68,23 +83,23 @@ void draw() {
   fill(255, 255, 0);
   translate(0, -size/2, 0);
   rotateX(PI/2);
-  rect(0, 0, size, size);
+  image(side4, 0, 0, size, size);
   popMatrix();
 
   //side 5
   pushMatrix();
   fill(0, 255, 255);
-  translate(size/2, 0,0);
+  translate(size/2, 0, 0);
   rotateY(PI/2);
-  rect(0, 0, size, size);
+  image(side5, 0, 0, size, size);
   popMatrix();
 
   //side 6
   pushMatrix();
   fill(255, 0, 255);
-  translate(-size/2, 0,0);
+  translate(-size/2, 0, 0);
   rotateY(PI/2);
-  rect(0, 0, size, size);
+  image(side6, 0, 0, size, size);
   popMatrix();
 
 
@@ -101,7 +116,6 @@ void drawRectangle(PVector position, PImage texture) {
 
 void keyPressed() {
   if (keyCode == UP) {
-    
   } else if (keyCode == DOWN) {
     pos.y+=10;
   } else if (keyCode == RIGHT) {
@@ -112,9 +126,13 @@ void keyPressed() {
     theta +=0.5;
   } else if (key == 's') {
     theta -=0.5;
-  } else if (key == 'a'){
+  } else if (key == 'a') {
     phi +=0.5;
-  } else if (key == 'd'){
+  } else if (key == 'd') {
     phi -=0.5;
+  } else if (key == 'z') {
+    angleX+=0.5;
+  } else if (key == 'x') {
+    angleX-=0.5;
   }
 }
