@@ -1,5 +1,3 @@
-import peasy.*;
-
 //wasd <>
 
 PVector pos;
@@ -7,7 +5,9 @@ int size;
 
 PGraphics side1, side2, side3, side4, side5, side6;
 
-float theta, phi, angleX;
+float theta = -2.5;
+float phi = 1.5;
+float angleX = -5.5;
 
 Ball ball;
 Display1 display1;
@@ -38,6 +38,9 @@ void draw() {
   imageMode(CENTER);
   rectMode(CENTER);
 
+  println("theta" + theta);
+  println("phi" + phi);
+  println("x" + angleX);
 
   ball.display(side1);
   display1.display(side2);
