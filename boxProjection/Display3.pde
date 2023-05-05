@@ -1,4 +1,4 @@
-class Display3 {
+class Display3 extends Display {
   int[] cells;
 
   int cellSize;
@@ -14,18 +14,23 @@ class Display3 {
     cells[cells.length/2]=1;
   }
 
-  void display(PGraphics p) {
-    p.beginDraw();
+  void display(ArrayList<PGraphics> p) {
+    super.display(p);
+    p.get(1).beginDraw();
+    p.get(1).background(100, 70, 70);
+    p.get(1).endDraw();
+    
+    p.get(0).beginDraw();
 
     for (int i =0; i <cells.length; i++) {
       if (cells[i] == 1) {
-        p.fill(0);
+        p.get(0).fill(0);
       } else {
-        p.fill (255);
+        p.get(0).fill (255);
       }
-      p.rect(i*cellSize, generation *cellSize, cellSize, cellSize);
+      p.get(0).rect(i*cellSize, generation *cellSize, cellSize, cellSize);
     }
-    int [] nextGen = new int [p.width/cellSize];
+    int [] nextGen = new int [p.get(0).width/cellSize];
     for (int i = 1; i <cells.length-1; i++) {
       int state = newState(cells [i-1], cells [i], cells [i+1]);
       nextGen[i] = state;
@@ -34,7 +39,7 @@ class Display3 {
     cells = nextGen;
     generation ++;
 
-    if (generation >p.height/cellSize) {
+    if (generation >p.get(0).height/cellSize) {
       for (int i=0; i <ruleSet.length; i++) {
         ruleSet[i] = int(random(2));
       }
@@ -44,7 +49,7 @@ class Display3 {
         generation = 0;
       }
     }
-    p.endDraw();
+    p.get(0).endDraw();
   }
 
   //function to apply rule set to the neighborhood

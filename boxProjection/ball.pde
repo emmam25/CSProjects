@@ -1,4 +1,4 @@
-class Ball {
+class Ball extends Display{
   PVector ballPos;
   float xVel, yVel;
   Ball(PVector pos, PVector vel) {
@@ -6,12 +6,13 @@ class Ball {
     this.xVel = vel.x;
     this.yVel = vel.y;
   }
-  void display(PGraphics p) {
-    p.beginDraw();
-    p.background(0,255,0);
-    p.fill(0);
-    p.ellipse(ballPos.x, ballPos.y, 40, 40);
-    p.endDraw();
+  void display(ArrayList<PGraphics> p) {
+    super.display(p);
+    p.get(0).beginDraw();
+    p.get(0).background(0,255,0);
+    p.get(0).fill(0);
+    p.get(0).ellipse(ballPos.x, ballPos.y, 40, 40);
+    p.get(0).endDraw();
     
     ballPos.x += xVel;
     ballPos.y += yVel;

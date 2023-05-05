@@ -38,14 +38,18 @@ void draw() {
   //lights();
   imageMode(CENTER);
   rectMode(CENTER);
-
-  ball.display(side1);
-  display1.display(side2);
-  display2.display(side3);
-  display3.display(side4);
-  display2.display(side5);
-  display1.display(side6);
-
+  ArrayList<PGraphics> one = new ArrayList<PGraphics>();
+  one.add(side2);
+  one.add(side1);
+  display1.display(one);
+  ArrayList<PGraphics> two = new ArrayList<PGraphics>();
+  two.add(side3);
+  two.add(side4);
+  display2.display(two);
+  ArrayList<PGraphics> three = new ArrayList<PGraphics>();
+  three.add(side5);
+  three.add(side6);
+  display3.display(three);
 
   pushMatrix();
   translate(pos.x, pos.y, pos.z);
@@ -149,6 +153,11 @@ void keyPressed() {
     angleXV=aV;
   } else if (key == 'x') {
     angleXV=-aV;
+  } else if(key == '4'){
+    println("theta " + theta);
+    println("phi " + phi);
+    println("angleX " + angleX);
+    println("pos " + pos);
   }
 }
 
