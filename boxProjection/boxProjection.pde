@@ -1,5 +1,3 @@
-//wasd <>
-
 PVector pos;
 int size;
 
@@ -8,6 +6,9 @@ PGraphics side1, side2, side3, side4, side5, side6;
 float theta = -2.5;
 float phi = 1.5;
 float angleX = -5.5;
+
+float thetaV, phiV, angleXV;
+float xV, yV, zV;
 
 Ball ball;
 Display1 display1;
@@ -37,10 +38,6 @@ void draw() {
   //lights();
   imageMode(CENTER);
   rectMode(CENTER);
-
-  println("theta" + theta);
-  println("phi" + phi);
-  println("x" + angleX);
 
   ball.display(side1);
   display1.display(side2);
@@ -108,6 +105,14 @@ void draw() {
 
 
   popMatrix();
+  
+  theta +=thetaV;
+  phi+=phiV;
+  angleX+=angleXV;
+  
+  pos.x+=xV;
+  pos.y+=yV;
+  pos.z+=zV;
 }
 
 void drawRectangle(PVector position, PImage texture) {
@@ -118,24 +123,40 @@ void drawRectangle(PVector position, PImage texture) {
 }
 
 void keyPressed() {
+  float aV = 0.1; //velocity for angles
+  float pV = 5; //velocity for position variables
   if (keyCode == UP) {
+    yV = -pV;
   } else if (keyCode == DOWN) {
-    pos.y+=10;
+    yV = pV;
   } else if (keyCode == RIGHT) {
-    pos.x+=10;
+    xV = pV;
   } else if (keyCode == LEFT) {
-    pos.x-=10;
-  } else if (key == 'w') {
-    theta +=0.5;
+    xV = -pV;
+  } else if (key == ','){
+    zV = pV;
+  } else if (key == '.'){
+    zV = -pV;
+  }else if (key == 'w') {
+    thetaV = aV;
   } else if (key == 's') {
-    theta -=0.5;
+    thetaV -=aV;
   } else if (key == 'a') {
-    phi +=0.5;
+    phiV =aV;
   } else if (key == 'd') {
-    phi -=0.5;
+    phiV= -aV;
   } else if (key == 'z') {
-    angleX+=0.5;
+    angleXV=aV;
   } else if (key == 'x') {
-    angleX-=0.5;
+    angleXV=-aV;
   }
+}
+
+void keyReleased(){
+  thetaV = 0;
+  phiV = 0;
+  angleXV =0;
+  xV =0;
+  yV = 0;
+  zV = 0;
 }
