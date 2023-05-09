@@ -10,7 +10,6 @@ class Display3 extends Display {
     generation = 0;
 
     cells = new int[size/cellSize];
-    //make the top middle cell alive
     cells[cells.length/2]=1;
   }
 

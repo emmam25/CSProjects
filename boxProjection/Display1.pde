@@ -1,5 +1,4 @@
 class Display1 extends Display {
-
   Display1() {
   }
 
