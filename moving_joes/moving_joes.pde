@@ -1,7 +1,7 @@
 PVector pos;
 int size;
 
-PGraphics side1, side2, side3, side4, side5, side6;
+PGraphics side1;
 
 float theta = -2.5;
 float phi = 1.5;
@@ -13,12 +13,10 @@ float xV, yV, zV;
 int selected;
 
 ArrayList<joe> points = new ArrayList<joe>();
-joe v1, v2, v3, v4;
-polygon poly1;
+joe v1, v2, v3, v4; //the joes are pickable points
+polygon square;
 
 Display1 display1;
-Display2 display2;
-Display3 display3;
 
 PGraphics clickTracker;
 
@@ -29,31 +27,19 @@ void setup() {
   imageMode(CENTER);
 
   side1 = createGraphics(size, size, P3D);
-  side2 = createGraphics(size, size, P3D);
-  side3 = createGraphics(size, size, P3D);
-  side4 = createGraphics(size, size, P3D);
-  side5 = createGraphics(size, size, P3D);
-  side6 = createGraphics(size, size, P3D);
 
   display1 = new Display1();
-  display2 = new Display2();
-  display3 = new Display3();
 
-  v1 = new joe (0, 0);
+  v1 = new joe (50, 50);
   points.add(v1);
-  v2 = new joe (size, 0);
+  v2 = new joe (50+size, 50);
   points.add(v2);
-  v3 = new joe (size, size);
+  v3 = new joe (50+size, 50+size);
   points.add(v3);
-  v4 =  new joe (0, size);
+  v4 =  new joe (50, 50+size);
   points.add(v4);
 
-  ArrayList<joe> points1 = new ArrayList<joe>();
-  points1.add(v1);
-  points1.add(v2);
-  points1.add(v3);
-  points1.add(v4);
-  poly1 = new polygon(points1); //vertices 1-4
+  square = new polygon(points);
 
   clickTracker = createGraphics(width, height, P3D);
 }
@@ -61,83 +47,18 @@ void draw() {
   background(255);
 
   //lights();
-  imageMode(CORNER);
-  rectMode(CORNER);
-  shapeMode(CORNER);
+  imageMode(CENTER);
+  rectMode(CENTER);
 
   //draw the displays to the pgraphics objects
   ArrayList<PGraphics> one = new ArrayList<PGraphics>();
-  one.add(side2);
   one.add(side1);
   display1.display(one);
-  ArrayList<PGraphics> two = new ArrayList<PGraphics>();
-  two.add(side3);
-  two.add(side4);
-  display2.display(two);
-  ArrayList<PGraphics> three = new ArrayList<PGraphics>();
-  three.add(side5);
-  three.add(side6);
-  display3.display(three);
-
-  poly1.showShape(side1);
-  pushMatrix();
-  translate(pos.x, pos.y, pos.z);
-  rotateZ(phi);
-  rotateY(theta);
-  rotateX(angleX);
-  fill(255);
-  box(size-1);
 
 
-  //side 1
-  pushMatrix();
-  fill(0, 255, 0);
-  translate(0, 0, size/2);
-  image(side2, 0, 0, size, size);
-  popMatrix();
-  
-  //side 2
-  pushMatrix();
-  fill(0, 255, 0);
-  translate(0, 0, -size/2);
-  image(side2, 0, 0, size, size);
-  popMatrix();
+  fill(255, 0, 0);
+  square.showShape(side1);
 
-  //side 3
-  pushMatrix();
-  fill(0, 0, 255);
-  translate(0, size/2, 0);
-  rotateX(PI/2);
-  image(side3, 0, 0, size, size);
-  popMatrix();
-
-  //side 4
-  pushMatrix();
-  fill(255, 255, 0);
-  translate(0, -size/2, 0);
-  rotateX(PI/2);
-  image(side4, 0, 0, size, size);
-  popMatrix();
-
-  //side 5
-  pushMatrix();
-  fill(0, 255, 255);
-  translate(size/2, 0, 0);
-  rotateY(PI/2);
-  image(side5, 0, 0, size, size);
-  popMatrix();
-
-  //side 6
-  pushMatrix();
-  fill(255, 0, 255);
-  translate(-size/2, 0, 0);
-  rotateY(PI/2);
-  image(side6, 0, 0, size, size);
-  popMatrix();
-
-
-
-  popMatrix();
 
   for (int i = 0; i<points.size(); i++) {
     points.get(i).drawCube(clickTracker, i);
@@ -147,21 +68,13 @@ void draw() {
       points.get(i).drawCube(g, i);
     }
   }
-
-  theta +=thetaV;
-  phi+=phiV;
-  angleX+=angleXV;
-
-  pos.x+=xV;
-  pos.y+=yV;
-  pos.z+=zV;
 }
 
 void drawRectangle(PVector position, PImage texture) {
-  pushMatrix();
-  translate(position.x, position.y, position.z);
+  /*  pushMatrix();
+   translate(position.x, position.y, position.z);*/
   image(texture, 0, 0, 100, 100);
-  popMatrix();
+  //popMatrix();
 }
 
 void keyPressed() {
@@ -170,26 +83,18 @@ void keyPressed() {
   if (keyCode == UP) {
     if (selected != -1) {
       points.get(selected).pos.y-=10;
-    } else {
-      yV = -pV;
     }
   } else if (keyCode == DOWN) {
     if (selected != -1) {
       points.get(selected).pos.y+=10;
-    } else {
-      yV = pV;
     }
   } else if (keyCode == RIGHT) {
     if (selected != -1) {
       points.get(selected).pos.x+=10;
-    } else {
-      xV = pV;
     }
   } else if (keyCode == LEFT) {
     if (selected != -1) {
       points.get(selected).pos.x-=10;
-    } else {
-      xV = -pV;
     }
   } else if (key == ',') {
     zV = pV;
