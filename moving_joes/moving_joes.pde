@@ -16,7 +16,7 @@ ArrayList<joe> points = new ArrayList<joe>();
 joe v1, v2, v3, v4; //the joes are pickable points
 polygon square;
 
-Display1 display1;
+Display2 display2;
 
 PGraphics clickTracker;
 
@@ -28,7 +28,7 @@ void setup() {
 
   side1 = createGraphics(size, size, P3D);
 
-  display1 = new Display1();
+  display2 = new Display2();
 
   v1 = new joe (50, 50);
   points.add(v1);
@@ -53,7 +53,7 @@ void draw() {
   //draw the displays to the pgraphics objects
   ArrayList<PGraphics> one = new ArrayList<PGraphics>();
   one.add(side1);
-  display1.display(one);
+  display2.display(one);
 
 
   fill(255, 0, 0);
