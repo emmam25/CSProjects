@@ -57,17 +57,12 @@ void draw() {
 
 
   fill(255, 0, 0);
+
   square.showShape(side1);
 
 
-  for (int i = 0; i<points.size(); i++) {
-    points.get(i).drawCube(clickTracker, i);
-    if (selected == i) {
-      points.get(i).drawCube(g, color(0, 255, 0));
-    } else {
-      points.get(i).drawCube(g, i);
-    }
-  }
+
+
 }
 
 void drawRectangle(PVector position, PImage texture) {

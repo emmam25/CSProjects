@@ -20,6 +20,15 @@ class polygon{
     s.endShape();
     
     shape(s, 0,0);
+    
+      for (int i = 0; i<vertices.size(); i++) {
+    vertices.get(i).drawCube(clickTracker, i);
+    if (selected == i) {
+      vertices.get(i).drawCube(g, color(0, 255, 0));
+    } else {
+      vertices.get(i).drawCube(g, i);
+    }
+  }
   }
   void addVertex(joe v){
     vertices.add(v);

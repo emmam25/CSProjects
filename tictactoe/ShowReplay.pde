@@ -8,7 +8,7 @@ class ShowReplay extends GameState {
   boolean run() {
     timePassed = millis() - startTime;
     //switch the move every second
-    if (timePassed >=1000) {
+    if (timePassed >=300) {
       startTime = millis();
       place ++;
       if (place >= time.size()) {

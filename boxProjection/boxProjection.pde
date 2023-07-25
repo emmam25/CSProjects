@@ -79,34 +79,36 @@ void draw() {
   three.add(side6);
   display3.display(three);
 
-  poly1.showShape(side1);
+  //poly1.showShape(side1);
   pushMatrix();
   translate(pos.x, pos.y, pos.z);
   rotateZ(phi);
   rotateY(theta);
   rotateX(angleX);
   fill(255);
+  
+  
   box(size-1);
 
 
   //side 1
   pushMatrix();
   fill(0, 255, 0);
-  translate(0, 0, size/2);
+  translate(-size/2, -size/2, size/2);
   image(side2, 0, 0, size, size);
   popMatrix();
   
   //side 2
   pushMatrix();
   fill(0, 255, 0);
-  translate(0, 0, -size/2);
+  translate(-size/2, -size/2, -size/2);
   image(side2, 0, 0, size, size);
   popMatrix();
 
   //side 3
   pushMatrix();
   fill(0, 0, 255);
-  translate(0, size/2, 0);
+  translate(-size/2, size/2, -size/2);
   rotateX(PI/2);
   image(side3, 0, 0, size, size);
   popMatrix();
@@ -114,7 +116,7 @@ void draw() {
   //side 4
   pushMatrix();
   fill(255, 255, 0);
-  translate(0, -size/2, 0);
+  translate(-size/2, -size/2, -size/2);
   rotateX(PI/2);
   image(side4, 0, 0, size, size);
   popMatrix();
@@ -122,7 +124,7 @@ void draw() {
   //side 5
   pushMatrix();
   fill(0, 255, 255);
-  translate(size/2, 0, 0);
+  translate(size/2, -size/2, size/2);
   rotateY(PI/2);
   image(side5, 0, 0, size, size);
   popMatrix();
@@ -130,16 +132,15 @@ void draw() {
   //side 6
   pushMatrix();
   fill(255, 0, 255);
-  translate(-size/2, 0, 0);
+  translate(-size/2, -size/2, size/2);
   rotateY(PI/2);
   image(side6, 0, 0, size, size);
   popMatrix();
 
 
-
   popMatrix();
 
-  for (int i = 0; i<points.size(); i++) {
+  /*for (int i = 0; i<points.size(); i++) {
     points.get(i).drawCube(clickTracker, i);
     if (selected == i) {
       points.get(i).drawCube(g, color(0, 255, 0));
@@ -147,7 +148,7 @@ void draw() {
       points.get(i).drawCube(g, i);
     }
   }
-
+*/
   theta +=thetaV;
   phi+=phiV;
   angleX+=angleXV;
