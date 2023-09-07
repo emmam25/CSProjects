@@ -16,7 +16,7 @@ ArrayList<joe> points = new ArrayList<joe>();
 joe v1, v2, v3, v4; //the joes are pickable points
 polygon square;
 
-Display2 display2;
+Display1 display1;
 
 PGraphics clickTracker;
 
@@ -28,7 +28,7 @@ void setup() {
 
   side1 = createGraphics(size, size, P3D);
 
-  display2 = new Display2();
+  display1 = new Display1();
 
   v1 = new joe (50, 50);
   points.add(v1);
@@ -53,20 +53,17 @@ void draw() {
   //draw the displays to the pgraphics objects
   ArrayList<PGraphics> one = new ArrayList<PGraphics>();
   one.add(side1);
-  display2.display(one);
+  display1.display(one);
 
 
   fill(255, 0, 0);
-
+  g.rotate(theta);
   square.showShape(side1);
-
-
-
 
 }
 
 void drawRectangle(PVector position, PImage texture) {
-  /*  pushMatrix();
+   /* pushMatrix();
    translate(position.x, position.y, position.z);*/
   image(texture, 0, 0, 100, 100);
   //popMatrix();
