@@ -4,16 +4,14 @@ ArrayList<Particle> particles;
 void setup() {
   size(displayWidth, displayHeight);
   goal = loadImage("GoalImage.png");
-  int w = goal.width;
-  int h = goal.height;
-  float scale = width/w;
-  goal.resize((int)(w*scale), (int)(h*scale));
+  goal.resize(444, 624);
   current = createImage(goal.width, goal.height, RGB);
   particles = new ArrayList<Particle>();
-  for (int i = 0; i<goal.width/1; i++) {
-    for (int j = 0; j<goal.height/1; j++) {
+  for (int i = 0; i<goal.width; i++) {
+    for (int j = 0; j<goal.height; j++) {
       PVector endPos = new PVector(i, j);
-      PVector startPos = new PVector(50,50);
+      int side = (int) random(3);
+      PVector startPos = new PVector(0,0);
       int index = i + (j*goal.width);
       color pixelColor = goal.pixels[index];
       Particle p = new Particle(startPos, endPos, pixelColor);
@@ -22,6 +20,8 @@ void setup() {
   }
 }
 void draw() {
+  background(255);
+  current.loadPixels();
   for (Particle p : particles) {
     //check if out of bounds!!!
     int index = (int)( p.getPos().x + (p.getPos().y*goal.width));
@@ -30,6 +30,6 @@ void draw() {
       p.getCloser();
     }
   }
+  current.updatePixels();
   image(current, 0, 0);
-  image(goal, 0, 500);
 }
