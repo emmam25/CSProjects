@@ -10,8 +10,8 @@ void setup() {
   goal.resize((int)(w*scale), (int)(h*scale));
   current = createImage(goal.width, goal.height, RGB);
   particles = new ArrayList<Particle>();
-  for (int i = 0; i<goal.width/5; i++) {
-    for (int j = 0; j<goal.height/5; j++) {
+  for (int i = 0; i<goal.width/1; i++) {
+    for (int j = 0; j<goal.height/1; j++) {
       PVector endPos = new PVector(i, j);
       PVector startPos = new PVector(50,50);
       int index = i + (j*goal.width);
