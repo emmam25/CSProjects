@@ -15,17 +15,22 @@ class Circle {
     this.g=g;
     velocity = new PVector(random(-5, 5), random(-5, 5));
   }
-  void run() {
+  void run(PGraphics pg) {
     lifeSpan +=deathVelocity;
     deathVelocity += deathAcc;
-    strokeWeight(10);
-    stroke(r, b, g, lifeSpan-50);
-    fill(r, b, g, lifeSpan);
-    circle(pos.x, pos.y, size);
-  }
-  void move() {
+    pg.strokeWeight(10);
+    pg.stroke(r, b, g, lifeSpan-50);
+    pg.fill(r, b, g, lifeSpan);
+    pg.circle(pos.x, pos.y, size);
     pos.x+=velocity.x;
     pos.y +=velocity.y;
+    
+    if(pos.x>pg.width || pos.x<0){
+      velocity.x = -velocity.x;
+    } 
+    if(pos.y >pg.height || pos.y<0){
+      velocity.y = -velocity.y;
+    }
   }
   boolean dead() {
     return lifeSpan <=0;
