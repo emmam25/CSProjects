@@ -12,7 +12,6 @@ void setup() {
   center = new PVector(width/2, height/2);
   r=0;
   time =0;
-  noStroke();
   fill(random(255), random(255), random(255), 25);
   background(255);
 }
@@ -33,9 +32,9 @@ void draw() {
     float lasty = 0;
     float radiusNoise =random(10);
     float colorNoise = random(20);
-    for (float a = 0; a <= random(PI*5, PI*15); a += 0.1) {
-      radius +=0.05;
-      radiusNoise +=0.05;
+    for (float a = 0; a <= random(PI*2, PI*5); a += 0.01) {
+      radius +=0.05; 
+      radiusNoise +=0.05; // how wacky the spiral is
       colorNoise -=0.5;
       float thisRadius = radius + (noise(radiusNoise)*200) -100;
       xPoint = (thisRadius * cos(a));
@@ -56,7 +55,7 @@ void draw() {
 
   popMatrix();
 
-  angle+=0.01; //(how fast it is turning)
+  angle+=0.05; //(how fast it is turning)
   time+=0.01; // (how fast it is moving outward)
   r = abs(sin(time))*400;
 }
@@ -71,4 +70,12 @@ void redAndBlack(float radiusNoise, float colorNoise) {
   if (radiusNoise<5) {
     stroke(255, 0, 0, noise(colorNoise) *255 );
   }
+}
+
+
+void keyPressed(){
+  background(255);
+  angle = 0;
+  r = 0;
+  time =0;
 }
