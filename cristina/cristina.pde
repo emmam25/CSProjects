@@ -1,6 +1,7 @@
 PImage back;
 PImage girl;
 PImage houses;
+PImage shadow;
 
 float houseTint;
 float girlTint;
@@ -15,15 +16,16 @@ PGraphics pg;
 void setup() {
   size(displayWidth, displayHeight);
   back = loadImage("background.png");
-  girl = loadImage("girl.png");
+  girl = loadImage("girl2.png");
   houses = loadImage("houses.png");
+  shadow = loadImage("shadow.png");
   pg = createGraphics(width, height);
 
   houseTint = 0;
   girlTint =0;
   
-  housePlus = 10;
-  girlPlus = 10;
+  housePlus = 5;
+  girlPlus = 5;
   
   houseTrigger = 150;
 }
@@ -35,6 +37,7 @@ void draw() {
   pg.image(houses, 0, 0, width, height);
   pg.tint(255, girlTint);
   pg.image(girl, 0, 0, width, height);
+ // pg.image(shadow, 0,0,width, height);
   pg.noTint();
   pg.endDraw();
   image(pg, 0, 0);
