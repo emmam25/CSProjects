@@ -31,7 +31,7 @@ void draw() {
   background(0);
   for (int i = 0; i<numLights; i++) {
     tint(random(255), random(255), random(255), 150);
-    image(light, lightPos[i].x, lightPos[i].y, 100, 100);
+    image(light, lightPos[i].x, lightPos[i].y, 150, 150);
   }
 
   //lights();
