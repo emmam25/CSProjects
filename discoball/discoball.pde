@@ -6,6 +6,7 @@ PVector[][] ball;
 PImage light;
 
 PVector[] lightPos;
+color[] lightColor;
 int numLights;
 
 float angle;
@@ -21,8 +22,10 @@ void setup() {
   light = loadImage("light.png");
   numLights = 300;
   lightPos = new PVector[numLights];
+  lightColor = new color[numLights];
   for (int i =0; i<numLights; i++) {
     lightPos[i] = new PVector(random(-100, width+100), random(-100, height+100));
+    lightColor[i] = color(random(255), random(255), random(255));
   }
   angle =0;
 }
@@ -30,7 +33,7 @@ void setup() {
 void draw() {
   background(0);
   for (int i = 0; i<numLights; i++) {
-    tint(random(255), random(255), random(255), 150);
+    tint(lightColor[i], 150);
     image(light, lightPos[i].x, lightPos[i].y, 150, 150);
   }
 
@@ -60,8 +63,8 @@ void draw() {
     strokeWeight(2);
     beginShape();
     for (int i = 0; i<n-1; i++) {
-    //  fill(map(noise(i, j), 0, 1, 200, 255));
-      fill(random(180, 255), 121, random(180,255));
+      //  fill(map(noise(i, j), 0, 1, 200, 255));
+      fill(random(180, 255), 121, random(180, 255));
       PVector one = ball[i][j];
       PVector two = ball [i+1][j];
       PVector three = ball[i+1][j+1];
@@ -72,5 +75,8 @@ void draw() {
       vertex(four.x, four.y, four.z);
       endShape();
     }
+  }
+  for (int i =0; i<3; i++) {
+    lightColor[(int)random(numLights)] = color(random(255), random(255), random(255));
   }
 }

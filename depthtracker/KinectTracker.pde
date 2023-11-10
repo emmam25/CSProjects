@@ -13,15 +13,14 @@ class KinectTracker {
   int[] depth;
 
   // What we'll show the user
-  PImage display;
+
   color c;
 
   KinectTracker() {
 
     kinect.initDepth();
     kinect.enableMirror(true);
-    // Make a blank image
-    display = createImage(kinect.width, kinect.height, RGB);
+
     // Set up the vectors
     loc = new PVector(0, 0);
     lerpedLoc = new PVector(0, 0);
@@ -42,7 +41,8 @@ class KinectTracker {
     for (int x = 0; x < kinect.width; x++) {
       for (int y = 0; y < kinect.height; y++) {
 
-        int offset =  x + y*kinect.width;
+        //    int offset =  x + y*kinect.width; // unmirrored
+        int offset = kinect.width - x - 1 + y * kinect.width;
         // Grabbing the raw depth
         int rawDepth = depth[offset];
 
@@ -58,10 +58,6 @@ class KinectTracker {
     if (count != 0) {
       loc = new PVector(sumX/count, sumY/count);
     }
-
-    // Interpolating the location, doing it arbitrarily for now
-    lerpedLoc.x = PApplet.lerp(lerpedLoc.x, loc.x, 0.3f);
-    lerpedLoc.y = PApplet.lerp(lerpedLoc.y, loc.y, 0.3f);
   }
 
   PVector getLerpedPos() {
@@ -74,6 +70,7 @@ class KinectTracker {
 
   PImage display() {
     PImage img = kinect.getDepthImage();
+    PImage display = createImage(kinect.width, kinect.height, RGB);
 
     // Being overly cautious here
     if (depth == null || img == null) return null;
@@ -84,23 +81,22 @@ class KinectTracker {
     for (int x = 0; x < kinect.width; x++) {
       for (int y = 0; y < kinect.height; y++) {
 
-        int offset = x + y * kinect.width;
+        //    int offset =  x + y*kinect.width; // unmirrored
+        int offset = kinect.width - x - 1 + y * kinect.width;
         // Raw depth
         int rawDepth = depth[offset];
         int pix = x + y * display.width;
         if (rawDepth < threshold) {
-          c = color(map(y,0,kinect.height,50,255),0,0);
-          display.pixels[pix] = c;
+          display.pixels[pix] = color(c);
         } else {
-          display.pixels[pix] = (0);
+          display.pixels[pix] = color(0);
         }
       }
     }
     display.updatePixels();
-    // Draw the image
-    Change(display);
-   // image(display, width/2, (height/2), width, height);
-   return display;
+
+    // image(display, width/2, (height/2), width, height);
+    return display;
   }
 
   int getThreshold() {
