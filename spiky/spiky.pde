@@ -2,7 +2,6 @@ float angle;
 
 void setup() {
   size(displayWidth,displayHeight);
-  noStroke();
   angle =4;
   stroke(0);
 }

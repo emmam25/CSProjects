@@ -7,8 +7,6 @@ void setup() {
   angle =0;
   light = loadImage("light.png");
   light.resize(10,10);
-
-  smooth();
 }
 
 void draw() {

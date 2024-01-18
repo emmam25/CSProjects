@@ -1,4 +1,3 @@
-//fixed time
 Image image;
 float startTime = millis();
 void setup() {
@@ -7,10 +6,9 @@ void setup() {
 }
 void draw() {
   background(255);
- /* if (image.allInPlace() && millis() -startTime>5000) {
-    image.switchParticles();
-    println('y');
-    startTime = millis();
-  }*/
-  image(image.run(),0,0);
+  image(image.run(),0,0, width, height);
+}
+
+void keyPressed(){
+  image.switchParticles();
 }

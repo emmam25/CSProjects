@@ -9,8 +9,8 @@ class Image {
     particles = new ArrayList<Particle>();
     for (int i = 0; i<goal.width; i++) {
       for (int j = 0; j<goal.height; j++) {
-        PVector endPos = new PVector(i, j);
-        PVector startPos = new PVector(random(goal.width), random(goal.height));
+        PVector endPos = new PVector(i+random(-15,15), j+random(-15,15));
+        PVector startPos = new PVector(i,j);
         int index = i + (j*goal.width);
         color pixelColor = goal.pixels[index];
         Particle p = new Particle(startPos, endPos, pixelColor);
@@ -33,16 +33,7 @@ class Image {
     return current;
   }
   
-  boolean allInPlace(){
-    int stillMoving =0; //number of particles still moving
-    for(Particle p: particles){
-      if (p.oneIncrement.x != 0 || p.oneIncrement.y != 0){ //if it is still moving
-         stillMoving++;
-      }
-    }
-    return stillMoving<500;
-  }
-  void switchParticles(){
+    void switchParticles(){
     for(Particle p: particles){
       p.switchDirection();
     }
