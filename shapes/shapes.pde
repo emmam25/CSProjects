@@ -1,30 +1,34 @@
 import peasy.*;
 PeasyCam cam;
-float r = 50;
 float m = 2;
+float r = 50;
 float n1 = 20;
 float n2 = 10;
 float n3 = 10;
 float a = 1;
 float b = 1;
 float spacing = 0.05;
+PImage img;
 void setup() {
   size(800, 800, P3D);
   cam = new PeasyCam(this, 0, 0, 0, 300);
   cam.setWheelHandler(null);
+  img = loadImage("glowy.png");
 }
 void draw() {
   background(0);
-  /* stroke(255, 0, 0);
-   line(-100, 0, 0, 100, 0, 0);
-   stroke(0, 255, 0);
-   line(0, -100, 0, 0, 100, 0);
-   stroke(0, 0, 255);
-   line(0, 0, -100, 0, 0, 100);*/
+/*  stroke(255, 0, 0);
+  line(-100, 0, 0, 100, 0, 0);
+  stroke(0, 255, 0);
+  line(0, -100, 0, 0, 100, 0);
+  stroke(0, 0, 255);
+  line(0, 0, -100, 0, 0, 100);*/
   fill(0, 255, 0);
-  stroke(255);
+  noStroke();
+  textureMode(NORMAL);
 
   beginShape(TRIANGLE_FAN);
+  texture(img);
   for (float p = 0; p<PI+0.1; p+=spacing) {
     float r1 = getR(m, p, n1, n2, n3, a, b);
     for (float t = 0; t<2*PI+0.1; t+=spacing) {
@@ -32,7 +36,7 @@ void draw() {
       float z = r*r2*sin(p);
       float x = r*r1*cos(t) * r2 *cos(p);
       float y = r*r1*sin(t) * r2*cos(p);
-      vertex(x, y, z);
+      vertex(x, y, z, map(x, -r*r1*r2, r*r1*r2, 0, 1), map(y, -r*r1*r2, r*r1*r2, 0, 1));
     }
   }
   endShape();
