@@ -14,13 +14,15 @@ class Particle {
     limit = random(400,1200);
   }
 
-  void run() {
-    fill(map(noise(t/3), 0,1,0,150), map(noise(t/3), 0,1,120,255), 0);
-    noStroke();
-    pushMatrix();
-    translate(pos.x, pos.y);
-    circle(0,0,map(noise(t+200),0,1,0,50));
-    popMatrix();
+  void run(PGraphics pg) {
+    pg.beginDraw();
+    pg.fill(131, map(noise(t), 0,1,50,99), map(noise(t), 0,1,50,99));
+    pg.noStroke();
+    pg.pushMatrix();
+    pg.translate(pos.x, pos.y);
+    pg.circle(0,0,map(noise(t+200),0,1,0,50));
+    pg.popMatrix();
+    pg.endDraw();
     pos.x+=map(noise(t), 0, 1, -v, v);
     pos.y+=map(noise(t+100), 0, 1, -v, v);
     pastPos.add(pos);

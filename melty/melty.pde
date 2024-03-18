@@ -1,6 +1,6 @@
 import peasy.*;
 PeasyCam cam;
-int num = 10;
+int num = 20;
 Point[][] points = new Point[num][num];
 int panelWidth = 2;
 PImage flower;
@@ -8,7 +8,7 @@ void setup() {
   size(800, 800, P3D);
   cam = new PeasyCam(this, 0, 0, 0, 300);
   cam.setWheelHandler(null);
-  flower = loadImage("flower.png");
+  flower = loadImage("georgia.png");
   for (int i = 0; i<num; i++) {
     for (int j = 0; j<num; j++) {
       Point p = new Point(new PVector(map(i, 0, num-1, -100, 100), map(j, 0, num-1, -100, 100)), new PVector(0, 0), new PVector(0, 0));
@@ -78,7 +78,7 @@ void yMelt() {
   for (int i = 0; i<num; i++) {
     for (int j = 0; j<num; j++) {
       float farAway = j ; //distance from the top
-      float v = map(farAway, 0, num, 0, 0.01) * noise(i);
+      float v = map(farAway, 0, num, 0, 0.001) * noise(i);
       points[i][j].setAcc(new PVector(0,v,0));
     }
   }

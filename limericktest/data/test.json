@@ -1,0 +1,21 @@
+{
+"start": "$line1 \n $line2 \n $line3 \n $line4 \n $line5",
+    
+"line1": "(there once lived a cowboy named | there was a weird person called) $subject",
+"line2": "who everyone said was too $adj | (who had always wanted a | who stumbled upon a big) $noun",
+"line3": "$he did things $adv | but $he was $adj | but $he had a $noun",
+"line4": "and misplaced $his $noun | and fell down $adv",
+"line5": "so they never again called $him ($adj | $noun) | so $he never again tried to $pres1",
+    
+"subject": "fred",
+"adj": "red | dead",
+"pres1": "spread",
+"pres2": "spreads",
+"past": "said | spread | led",
+"noun": "lead | bed",
+"adv": "seeing red",
+    
+"he": "he",
+"his": "his",
+"him": "him"
+}

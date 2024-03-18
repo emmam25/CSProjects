@@ -1,12 +1,16 @@
 import peasy.*;
 PeasyCam cam;
 float m = 2;
-float r = 50;
+//r = 50
+float r = 100;
+//n1 = 10
 float n1 = 20;
-float n2 = 10;
+float n2 = 20;
 float n3 = 10;
-float a = 1;
+//a = 1
+float a = 5;
 float b = 1;
+float angle = 0;
 float spacing = 0.05;
 PImage img;
 void setup() {
@@ -14,9 +18,11 @@ void setup() {
   cam = new PeasyCam(this, 0, 0, 0, 300);
   cam.setWheelHandler(null);
   img = loadImage("glowy.png");
+  noCursor();
 }
 void draw() {
   background(0);
+  rotateZ(angle);
 /*  stroke(255, 0, 0);
   line(-100, 0, 0, 100, 0, 0);
   stroke(0, 255, 0);
@@ -54,6 +60,7 @@ void draw() {
    endShape();*/
   m+=0.01;
   a = map(sin(m), -1, 1, 1, 2); //bigger a is bigger shape
+  angle +=0.01;
 }
 //Where r and phi are polar coordinates (radius,angle).
 //n1, n2, n3, and m are real numbers. a and b are real numbers excluding zero.
