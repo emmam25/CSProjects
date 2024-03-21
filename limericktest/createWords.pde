@@ -8,15 +8,28 @@ void createWords() {
   for (String r : rhymes) {
     if (RiTa.isAdjective(r)) {
       words.add(new Word("adj", r));
+      addLines(adjLines);
+    }
+    if(RiTa.isAdverb(r)){
+      words.add(new Word("adv", r));
+    }
+    if(RiTa.isNoun(r)){
+      words.add(new Word("noun", r));
+    }
+    if(RiTa.isVerb(r)){
+      words.addAll(conjugate(r));
     }
   }
 
   for (Word w : words) {
     if (RiTa.isRhyme(w.value, saved)) {
-      json.setString(w.type, json.getString(w.type) + "|" + w.value);
+      jd.set(w.type, jd.get(w.type) + "|" + w.value);
     }
   }
-  //remove starting | from all json
+  jd.set("subject", saved);
+    //remove starting | from all json
+  removeBars();
+ // print(jd);
 }
 
 
