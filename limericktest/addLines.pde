@@ -30,8 +30,8 @@ StringDict jd() {
   jd.set("adv", "");
   jd.set("noun", "");
 
-  jd.set("he", "(he)");
-  jd.set("him", "(him)");
-  jd.set("his", "(his)");
+  jd.set("he", "they");
+  jd.set("him", "them");
+  jd.set("his", "their");
   return jd;
 }

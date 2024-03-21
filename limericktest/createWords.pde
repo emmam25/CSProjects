@@ -12,9 +12,11 @@ void createWords() {
     }
     if(RiTa.isAdverb(r)){
       words.add(new Word("adv", r));
+      addLines(advLines);
     }
     if(RiTa.isNoun(r)){
       words.add(new Word("noun", r));
+      addLines(nounLines);
     }
     if(RiTa.isVerb(r)){
       words.addAll(conjugate(r));
