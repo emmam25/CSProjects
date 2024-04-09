@@ -1,25 +1,46 @@
-ArrayList<Word> conjugate(String v) {
-  ArrayList<Word> verbs = new ArrayList<Word>();
+ArrayList<String> verbTenses(String v) {
+  ArrayList<String> tenses = new ArrayList<String>();
   HashMap presP = new HashMap(); //present plural
   presP.put("tense", RiTa.PRESENT);
   presP.put("number", RiTa.PLURAL);
   presP.put("person", RiTa.THIRD);
-  verbs.add(new Word ("presP", RiTa.conjugate(v, presP)));
+  if (RiTa.conjugate(v, presP).equals(v)) {
+    tenses.add("presP");
+    addLines(presPLines);
+  }
 
   HashMap presS = new HashMap();
   presS.put("tense", RiTa.PRESENT);
   presS.put("number", RiTa.SINGULAR);
   presS.put("person", RiTa.THIRD);
-  verbs.add(new Word ("presS", RiTa.conjugate(v, presS)));
+  if (RiTa.conjugate(v, presS).equals(v)) {
+    tenses.add("presS");
+    addLines(presSLines);
+  }
 
   HashMap past = new HashMap();
   past.put("tense", RiTa.PAST);
   past.put("number", RiTa.SINGULAR);
   past.put("person", RiTa.THIRD);
-  verbs.add(new Word ("past", RiTa.conjugate(v, past)));
-  
-  
-  //need to add inf etc
-  
-  return verbs;
+  if (RiTa.conjugate(v, past).equals(v)) {
+    tenses.add("past");
+    addLines(pastLines);
+  }
+
+  HashMap inf = new HashMap();
+  inf.put("form", RiTa.INFINITIVE);
+  if (RiTa.isRhyme(RiTa.conjugate(v, inf), v)) {
+    tenses.add("inf");
+    print(RiTa.conjugate(v, inf));
+    addLines(infLines);
+  }
+
+  HashMap ger = new HashMap();
+  ger.put("form", RiTa.GERUND);
+  if (RiTa.conjugate(v, ger).equals(v)) {
+    tenses.add("ger");
+    addLines(gerLines);
+  }
+
+  return tenses;
 }

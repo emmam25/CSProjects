@@ -1,37 +1,35 @@
 void createWords() {
   ArrayList<String> rhymes = getRhymes(saved);
-  ArrayList<Word> words = new ArrayList<Word>();
   if (rhymes.size()==0) { //if your name doesn't rhyme you are fred instead
     saved = "fred";
-    rhymes = getRhymes(saved);
+    rhymes = getRhymes("fred");
   }
+  print(rhymes);
   for (String r : rhymes) {
     if (RiTa.isAdjective(r)) {
-      words.add(new Word("adj", r));
+      jd.set("adj", jd.get("adj") + "|" + r);
       addLines(adjLines);
     }
-    if(RiTa.isAdverb(r)){
-      words.add(new Word("adv", r));
+    if (RiTa.isAdverb(r)) {
+      jd.set("adv", jd.get("adv") + "|" + r);
       addLines(advLines);
     }
-    if(RiTa.isNoun(r)){
-      words.add(new Word("noun", r));
+    if (RiTa.isNoun(r)) {
+      jd.set("noun", jd.get("noun") + "|" + r);
       addLines(nounLines);
     }
-    if(RiTa.isVerb(r)){
-      words.addAll(conjugate(r));
-    }
-  }
-
-  for (Word w : words) {
-    if (RiTa.isRhyme(w.value, saved)) {
-      jd.set(w.type, jd.get(w.type) + "|" + w.value);
+    if (RiTa.isVerb(r)) {
+      //note that addLines is called within the verbTenses function
+      ArrayList<String> tenses = verbTenses(r);
+      for (String t : tenses) {
+        jd.set(t, jd.get(t) + "|" + r);
+      }
     }
   }
   jd.set("subject", saved);
-    //remove starting | from all json
+  //remove starting | from all json
   removeBars();
- // print(jd);
+  // print(jd);
 }
 
 
