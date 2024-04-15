@@ -4,7 +4,6 @@ void createWords() {
     saved = "fred";
     rhymes = getRhymes("fred");
   }
-  print(rhymes);
   for (String r : rhymes) {
     if (RiTa.isAdjective(r)) {
       jd.set("adj", jd.get("adj") + "|" + r);
@@ -29,7 +28,6 @@ void createWords() {
   jd.set("subject", saved);
   //remove starting | from all json
   removeBars();
-  // print(jd);
 }
 
 
