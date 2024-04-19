@@ -48,43 +48,43 @@ StringDict jd() {
 }
 
 void lineOptions() {
-  adjLines[1] = "$characters called $him too $adj";
-  adjLines[2] = "but $he seemed $adj";
-  adjLines[3] = "and $he appeared $adj";
-  adjLines[4] = "so they never again called $him $adj";
+  adjLines[1] = "$characters called $him too $adj.nr()";
+  adjLines[2] = "but $he seemed $adj.nr()";
+  adjLines[3] = "and $he appeared $adj.nr()";
+  adjLines[4] = "so they never again called $him $adj.nr()";
 
-  nounLines[1] = "who really wanted $noun.art()";
-  nounLines[2] = "then $he found $noun.art()";
-  nounLines[3] = "and $he tripped on $noun.art()";
-  nounLines[4] = "so $he turned into $noun.art()";
+  nounLines[1] = "who really wanted $noun.nr().art()";
+  nounLines[2] = "then $he found $noun.nr().art()";
+  nounLines[3] = "and $he tripped on $noun.nr().art()";
+  nounLines[4] = "so $he turned into $noun.nr().art()";
 
-  advLines[1] = "who $long_verb $adv";
-  advLines[2] = "$he walked around $adv";
-  advLines[3] = "$he fell over $adv";
-  advLines[4] = "and $characters cheered for $him $adv";
+  advLines[1] = "who $long_verb $adv.nr()";
+  advLines[2] = "$he walked around $adv.nr()";
+  advLines[3] = "$he fell over $adv.nr()";
+  advLines[4] = "and $characters cheered for $him $adv.nr()";
 
-  presSLines[1] = "$he knows that $character $presS";
-  presSLines[2] = "but $character $presS";
-  presSLines[3] = "and $character $presS";
-  presSLines[4] = "so now $character $presS";
+  presSLines[1] = "$he knows that $character $presS.nr()";
+  presSLines[2] = "but $character $presS.nr()";
+  presSLines[3] = "and $character $presS.nr()";
+  presSLines[4] = "so now $character $presS.nr()";
 
-  presPLines[1] = "$characters all see $him and $presP";
-  presPLines[2] = "$he saw $characters $presP";
-  presPLines[3] = "($characters|$his $body_parts) always $presP";
-  presPLines[4] = "and ($characters|$his $body_parts) almost never $presP";
+  presPLines[1] = "$characters all see $him and $presP.nr()";
+  presPLines[2] = "$he saw $characters $presP.nr()";
+  presPLines[3] = "($characters|$his $body_parts) always $presP.nr()";
+  presPLines[4] = "and ($characters|$his $body_parts) almost never $presP.nr()";
 
-  pastLines[1] = "who $long_verb and then $past";
-  pastLines[2] = "but at night $he $past";
-  pastLines[3] = "and $person $past";
-  pastLines[4] = "on $his birthday he woke up and $past";
+  pastLines[1] = "who $long_verb and then $past.nr()";
+  pastLines[2] = "but at night $he $past.nr()";
+  pastLines[3] = "and $character $past.nr()";
+  pastLines[4] = "on $his birthday $he woke up and $past.nr()";
 
-  infLines[1] = "$he always wanted $inf";
-  infLines[2] = "$he wanted $inf";
-  infLines[3] = "$he seemed $inf";
-  infLines[4] = "it would be really great $inf";
+  infLines[1] = "$he always wanted $inf.nr()";
+  infLines[2] = "$he wanted $inf.nr()";
+  infLines[3] = "$he seemed $inf.nr()";
+  infLines[4] = "it would be really great $inf.nr()";
 
-  gerLines[1] = "$he saw $characters $ger";
-  gerLines[2] = "$he really likes $ger";
-  gerLines[3] = "$he can't stop $ger";
-  gerLines[4] = "but $characters stop him from $ger";
+  gerLines[1] = "$he saw $characters $ger.nr()";
+  gerLines[2] = "$he really likes $ger.nr()";
+  gerLines[3] = "$he can't stop $ger.nr()";
+  gerLines[4] = "but $characters stop him from $ger.nr()";
 }

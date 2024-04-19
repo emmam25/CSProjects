@@ -1,23 +1,28 @@
 void createWords() {
-  ArrayList<String> rhymes = getRhymes(saved);
+  Set<String> rhymes = getRhymes(saved);
   if (rhymes.size()==0) { //if your name doesn't rhyme you are fred instead
+    jd.set("profession", saved);
     saved = "fred";
     rhymes = getRhymes("fred");
   }
+/* Set<String> rhymes = new HashSet<String>();
+ rhymes.add("hello");
+ rhymes.add("bye");
+ rhymes.add("up");
+ rhymes.add("down");*/
+  print(rhymes);
   for (String r : rhymes) {
+    //only add each word as one part of speech (to avoid repeats)
     if (RiTa.isAdjective(r)) {
       jd.set("adj", jd.get("adj") + "|" + r);
       addLines(adjLines);
-    }
-    if (RiTa.isAdverb(r)) {
+    } else if (RiTa.isAdverb(r)) {
       jd.set("adv", jd.get("adv") + "|" + r);
       addLines(advLines);
-    }
-    if (RiTa.isNoun(r)) {
+    } else if (RiTa.isNoun(r)) {
       jd.set("noun", jd.get("noun") + "|" + r);
       addLines(nounLines);
-    }
-    if (RiTa.isVerb(r)) {
+    } else if (RiTa.isVerb(r)) {
       //note that addLines is called within the verbTenses function
       ArrayList<String> tenses = verbTenses(r);
       for (String t : tenses) {
@@ -32,17 +37,18 @@ void createWords() {
 
 
 
-ArrayList<String> getRhymes(String name) {
+Set<String>  getRhymes(String name) {
+  Set<String> rhymes_set = new HashSet<String>();
+
   ArrayList<String> rhymes= new ArrayList<String>(Arrays.asList(RiTa.rhymes(name)));
-  //find last syllable
-  String syllable = RiTa.syllables(name);
-  syllable = syllable.substring(syllable.lastIndexOf('/') +1, syllable.length());
-  syllable = syllable.replaceAll("-", "");
-  //if all else fails
-  if (rhymes.size() <2 && name.length() >3) {
-    String end = name.substring(name.length()-3);
-    rhymes.addAll(Arrays.asList(RiTa.rhymes(end)));
-    rhymes.addAll(Arrays.asList(RiTa.rhymes(syllable)));
-  }
-  return rhymes;
+  rhymes_set.addAll(rhymes);
+
+  if (rhymes.size() <4 && name.length() >3) {
+    //find last syllable
+    String syllable = RiTa.syllables(name);
+    syllable = syllable.substring(syllable.lastIndexOf('/') +1, syllable.length());
+    syllable = syllable.replaceAll("-", "");
+    rhymes_set.addAll(Arrays.asList(RiTa.rhymes(syllable)));
+  }  
+  return rhymes_set;
 }

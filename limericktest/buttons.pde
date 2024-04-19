@@ -3,9 +3,9 @@ class Buttons {
   float buttonSize;
   PVector selected;
   Buttons() {
-    she = new PVector(300, 500);
-    he = new PVector(300, 550);
-    they = new PVector(300, 600);
+    she = new PVector(width/5, height/2);
+    he = new PVector(width/5, height/2 + 50);
+    they = new PVector(width/5, height/2 + 100);
     selected = new PVector(-100, -100);
     buttonSize = 20;
   }

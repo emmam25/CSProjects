@@ -31,7 +31,6 @@ ArrayList<String> verbTenses(String v) {
   inf.put("form", RiTa.INFINITIVE);
   if (RiTa.isRhyme(RiTa.conjugate(v, inf), v)) {
     tenses.add("inf");
-    print(RiTa.conjugate(v, inf));
     addLines(infLines);
   }
 

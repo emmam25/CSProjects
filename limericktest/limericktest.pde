@@ -1,9 +1,15 @@
+//easier to read
+//typewriter
+
 import rita.*;
 import java.util.*;
 
+PFont font;
+
+Poem poem;
+
 String typing = "";
 String saved = "";
-String poem = "";
 
 StringDict jd;
 String rules;
@@ -26,18 +32,24 @@ String[] pronouns = new String[]{"they", "them", "their"};
 
 
 void setup() {
-  size(800, 800);
+  fullScreen();
+  font = createFont("OldNewspaperTypes.ttf", 128);
+  
   lineOptions(); //initializes the lines
   jd = jd();
-  
+  poem = new Poem();
+
   buttons = new Buttons();
 }
 void draw() {
   background(255);
   fill(0);
   textSize(20);
-  text(typing, 50, 200);
-  text(poem, 100, 50);
+  text("name: " + typing, width/20, height/4);
+  textAlign(CENTER);
+ // textFont(font);
+  text(poem.makePoem(), width/2, height/2);
+  textAlign(CORNER);
   buttons.display();
 }
 
@@ -50,7 +62,8 @@ void keyPressed() {
     JSONObject json = new JSONObject(jd);
     rules = json.toString();
     grammar = RiTa.grammar(rules);
-    poem = grammar.expand();
+    poem.setValue(grammar.expand());
+    poem.startAdd();
   } else if (key >37 && keyCode!=SHIFT) {
     typing = typing + key;
   }
