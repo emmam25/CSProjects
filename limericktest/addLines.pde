@@ -16,7 +16,7 @@ StringDict jd() {
   StringDict jd = new StringDict();
   //main
   jd.set("start", "$0 \n$1 \n$2 \n$3 \n$4");
-  jd.set("0", "there once lived a $profession named $subject");
+  jd.set("0", "there once lived $profession.art() named $subject");
   jd.set("1", "");
   jd.set("2", "");
   jd.set("3", "");

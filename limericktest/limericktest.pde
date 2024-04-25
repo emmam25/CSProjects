@@ -1,12 +1,14 @@
-//easier to read
-//typewriter
+import processing.sound.*;
+
+//typewriter - clackity clack + bell
 
 import rita.*;
 import java.util.*;
 
 PFont font;
 
-Poem poem;
+Typewriter tw;
+SoundFile typewriting, bell;
 
 String typing = "";
 String saved = "";
@@ -33,11 +35,15 @@ String[] pronouns = new String[]{"they", "them", "their"};
 
 void setup() {
   fullScreen();
+  typewriting = new SoundFile(this, "typewriting.wav");
+  bell = new SoundFile(this, "bell.wav");
+
   font = createFont("OldNewspaperTypes.ttf", 128);
-  
+  textFont(font);
+
   lineOptions(); //initializes the lines
   jd = jd();
-  poem = new Poem();
+  tw = new Typewriter();
 
   buttons = new Buttons();
 }
@@ -45,10 +51,9 @@ void draw() {
   background(255);
   fill(0);
   textSize(20);
+  text("Type your name and select your pronouns for a custom poem!", width/2, height/5);
   text("name: " + typing, width/20, height/4);
-  textAlign(CENTER);
- // textFont(font);
-  text(poem.makePoem(), width/2, height/2);
+  tw.run();
   textAlign(CORNER);
   buttons.display();
 }
@@ -62,9 +67,11 @@ void keyPressed() {
     JSONObject json = new JSONObject(jd);
     rules = json.toString();
     grammar = RiTa.grammar(rules);
-    poem.setValue(grammar.expand());
-    poem.startAdd();
-  } else if (key >37 && keyCode!=SHIFT) {
+    tw.setValue(grammar.expand());
+    tw.startAdd();
+  } else if (key == BACKSPACE && typing.length()>0){
+    typing = typing.substring(0, typing.length() -1);
+  }else if (key >37 && keyCode!=SHIFT) {
     typing = typing + key;
   }
 }

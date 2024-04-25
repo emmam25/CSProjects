@@ -3,13 +3,8 @@ void createWords() {
   if (rhymes.size()==0) { //if your name doesn't rhyme you are fred instead
     jd.set("profession", saved);
     saved = "fred";
-    rhymes = getRhymes("fred");
+    rhymes = getRhymes("red");
   }
-/* Set<String> rhymes = new HashSet<String>();
- rhymes.add("hello");
- rhymes.add("bye");
- rhymes.add("up");
- rhymes.add("down");*/
   print(rhymes);
   for (String r : rhymes) {
     //only add each word as one part of speech (to avoid repeats)
@@ -49,6 +44,8 @@ Set<String>  getRhymes(String name) {
     syllable = syllable.substring(syllable.lastIndexOf('/') +1, syllable.length());
     syllable = syllable.replaceAll("-", "");
     rhymes_set.addAll(Arrays.asList(RiTa.rhymes(syllable)));
-  }  
+    String last = saved.substring(1);
+    rhymes_set.addAll(Arrays.asList(RiTa.rhymes(last)));
+  }
   return rhymes_set;
 }
