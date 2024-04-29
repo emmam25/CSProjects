@@ -1,6 +1,6 @@
 void createWords() {
   Set<String> rhymes = getRhymes(saved);
-  if (rhymes.size()==0) { //if your name doesn't rhyme you are fred instead
+  if (rhymes.size()<3) { //if your name doesn't rhyme you are fred instead
     jd.set("profession", saved);
     saved = "fred";
     rhymes = getRhymes("red");

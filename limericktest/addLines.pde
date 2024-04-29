@@ -29,7 +29,6 @@ StringDict jd() {
   jd.set("presS", "");
   jd.set("past", "");
   jd.set("ger", "");
-  jd.set("inf", "");
   jd.set("adv", "");
   jd.set("noun", "");
   
@@ -55,7 +54,7 @@ void lineOptions() {
 
   nounLines[1] = "who really wanted $noun.nr().art()";
   nounLines[2] = "then $he found $noun.nr().art()";
-  nounLines[3] = "and $he tripped on $noun.nr().art()";
+  nounLines[3] = "and $he lost $noun.nr().art()";
   nounLines[4] = "so $he turned into $noun.nr().art()";
 
   advLines[1] = "who $long_verb $adv.nr()";
@@ -77,11 +76,6 @@ void lineOptions() {
   pastLines[2] = "but at night $he $past.nr()";
   pastLines[3] = "and $character $past.nr()";
   pastLines[4] = "on $his birthday $he woke up and $past.nr()";
-
-  infLines[1] = "$he always wanted $inf.nr()";
-  infLines[2] = "$he wanted $inf.nr()";
-  infLines[3] = "$he seemed $inf.nr()";
-  infLines[4] = "it would be really great $inf.nr()";
 
   gerLines[1] = "$he saw $characters $ger.nr()";
   gerLines[2] = "$he really likes $ger.nr()";

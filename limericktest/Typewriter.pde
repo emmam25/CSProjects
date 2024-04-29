@@ -51,6 +51,10 @@ class Typewriter {
   void startAdd() {
     adding = true;
     typewriting.loop();
+    reset();
+  }
+
+  void reset() {
     poem = "";
     index =0;
     pos.x = startPos.x;

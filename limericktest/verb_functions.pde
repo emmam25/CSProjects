@@ -26,14 +26,7 @@ ArrayList<String> verbTenses(String v) {
     tenses.add("past");
     addLines(pastLines);
   }
-
-  HashMap inf = new HashMap();
-  inf.put("form", RiTa.INFINITIVE);
-  if (RiTa.isRhyme(RiTa.conjugate(v, inf), v)) {
-    tenses.add("inf");
-    addLines(infLines);
-  }
-
+  
   HashMap ger = new HashMap();
   ger.put("form", RiTa.GERUND);
   if (RiTa.conjugate(v, ger).equals(v)) {

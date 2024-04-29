@@ -12,13 +12,16 @@ class Buttons {
   void mouseClicked() {
     if (dist(mouseX, mouseY, she.x, she.y) < buttonSize) {
       pronouns = new String[]{"she", "her", "her"};
-      selected =she;
+      selected.x = she.x;
+      selected.y = she.y;
     } else if (dist(mouseX, mouseY, he.x, he.y) <buttonSize) {
       pronouns = new String[]{"he", "him", "his"};
-      selected = he;
+      selected.x = he.x;
+      selected.y = he.y;
     } else if (dist(mouseX, mouseY, they.x, they.y) <buttonSize) {
       pronouns = new String[]{"they", "them", "their"};
-      selected = they;
+      selected.x = they.x;
+      selected.y = they.y;
     }
   }
 
@@ -33,5 +36,11 @@ class Buttons {
     text("he/him", he.x+buttonSize+5, he.y);
     text("they/them", they.x+buttonSize+5, they.y);
     circle(selected.x, selected.y, buttonSize/2);
+  }
+
+  void reset() {
+    selected.x = -100;
+    selected.y = -100;
+    pronouns = new String[]{"they", "them", "their"};
   }
 }
