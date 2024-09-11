@@ -25,7 +25,7 @@ void draw() {
   strokeWeight(5);
   waveform.analyze();
 
-  float b = 0;
+  stroke(255,100,20);
   translate(width/2, height/2);
   beginShape();
   for (int c = 1; c<5; c++) {
@@ -36,9 +36,7 @@ void draw() {
       float r = map(waveform.data[i], -0.2, 1, 0, scale);
       float x = r*cos(theta);
       float y = r*sin(theta);
-      stroke(b);
       vertex(x, y);
-      b+=1;
     }
   }
   endShape();
