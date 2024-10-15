@@ -17,12 +17,20 @@ let video;
 let poseNet;
 let poses = [];
 
+let muscle;
+let forearm;
+let upperArm;
 
-
+function preload(){
+    muscle = loadImage("muscle.png");
+    forearm = loadImage("muscle1.png");
+    upperArm = loadImage("muscle2.png");
+}
 
 function setup() {
   createCanvas(640, 480);
-    textSize(15);
+    
+imageMode(CORNER);
   video = createCapture(VIDEO);
   video.size(width, height);
 
@@ -69,17 +77,42 @@ function drawKeypoints()  {
       if (keypoint.score > 0.2) {
         noStroke();
         ellipse(keypoint.position.x, keypoint.position.y, 10, 10);
+                  textSize(15);
         text(keypoint.part, keypoint.position.x, keypoint.position.y-10)
       }
     }
-      //5 = left shoulder
-      //7 = left elbow
-      //9 = left wrist
-    if(pose.keypoints[9].position.y <pose.keypoints[7].position.y){
-        text("your left wrist is above your left elbow", 30,30)
+    let leftShoulder = createVector(pose.keypoints[5].position.x, pose.keypoints[5].position.y);
+    let leftElbow = createVector(pose.keypoints[7].position.x, pose.keypoints[7].position.y);
+    let leftWrist = createVector(pose.keypoints[9].position.x, pose.keypoints[9].position.y);
+      
+    textSize(15); 
+      
+    angleMode(DEGREES);
+    // turn each arm into a vector
+    let upperArmV= createVector(leftShoulder.x -leftElbow.x, leftShoulder.y - leftElbow.y);
+    let foreArmV = createVector(leftWrist.x - leftElbow.x, leftWrist.y - leftElbow.y);
+    let angle = foreArmV.angleBetween(upperArmV);
+      
+    if (angle >60 && angle <120){
+
+        push();
+        translate(leftWrist.x-50, leftWrist.y);
+        rotate(-foreArmV.angleBetween(createVector(0,-1))); // want angle off of y axis (j vector)
+        let scaleFactor = abs(leftElbow.y - leftWrist.y)*1.5;
+        image(forearm, 0,0, forearm.width * scaleFactor/forearm.height, scaleFactor);
+        pop();
+        fill(0);
+        text(foreArmV.angleBetween(createVector(0,-1)), width - 30, height -30)
+      
+        
+        push();
+        translate(leftElbow.x-50, leftElbow.y);
+        rotate(-upperArmV.angleBetween(createVector(-1,0))); // want angle off of x axis (i vector)
+        scaleFactor = abs(leftElbow.x - leftShoulder.x)*1.5;
+        image(upperArm, 0,0, scaleFactor, upperArm.height * scaleFactor/upperArm.width);
+        pop();
     }
-    
-    
+      
   }
 }
 
@@ -97,15 +130,6 @@ function drawSkeleton() {
     }
   }
 }
-
-function findAngle(shoulder, elbow, wrist){
-    let vector1 = createVector(shoulder.x -elbow.x, shoulder.y - elbow.y);
-    let vector2 = createVector(wrist.x - elbow.x, wrist.y - elbow.y);
-    let cos = (vector1.dot(vector2))/(mag(vector1)*mag(vector2));
-    let angle = Math.acos(cos);
-    return angle;
-}
-
 
 
 function keyPressed()
