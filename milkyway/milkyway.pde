@@ -18,7 +18,7 @@ color middle = color(255, 255, 255);
 color outer = color(136, 120, 242);
 
 void setup() {
-  size(displayWidth, displayHeight, P3D);
+  size(1440,900, P3D);
   cam = new PeasyCam(this, 400);
   float maxTheta = PI*10;
   for (float theta = 0; theta <maxTheta; theta+=0.1) {

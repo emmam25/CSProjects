@@ -20,7 +20,7 @@ class Crack {
     }
     endShape();
     if (cracking && start.x+l*xInc <width && start.y+1*yInc<height) {
-      l+=0.05; //increment by less to crack slower
+      l+=0.1; //increment by less to crack slower
     }
   }
 }
