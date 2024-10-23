@@ -3,7 +3,7 @@ Text t1;
 PFont font;
 PVector translation = new PVector(0, 0);
 void setup() {
-  size(displayWidth, displayHeight);
+  size(1440,900);
   font = createFont("typewriter.otf", 50);
   noCursor();
 }
