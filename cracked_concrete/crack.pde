@@ -1,26 +1,45 @@
 class Crack {
-  PVector start;
+  ArrayList<PVector> points = new ArrayList<PVector>();
   float n = random(1000);
-  float l = 0; //length of crack
-  boolean cracking = true;
-  float angle = 0;
-  float yInc = random(1,3);
-  float xInc = random(1,3);
-  Crack(float x, float y) {
-    start = new PVector(x, y);
+  PVector vel;
+  boolean done = false;
+  boolean zigzag;
+
+  Crack(float x, float y, float velx, float vely, boolean zigzag) {
+    points.add(new PVector(x, y));
+    vel = new PVector(velx, vely);
+    this.zigzag = zigzag;
   }
   void run() {
-    stroke(0);
-    noFill();
-    beginShape();
-    float noff =0;
-    for (float i = 0; i<l; i+=5) {    //decrease i for more spikiness
-      vertex(start.x+xInc*i, start.y+yInc*i+map(noise(i+100), 0, 1, -25, 25));
-      noff+=0.02;
+    float nThick =0;
+    for (int i =0; i<points.size()-1; i++) {
+      PVector p = points.get(i);
+      PVector p2 = points.get(i+1);
+      strokeWeight(map(pow(noise(nThick), 2), 0, 1, 0, 7));
+      stroke(50);
+      line(p.x, p.y, p2.x, p2.y);
+      nThick+=0.05;
     }
-    endShape();
-    if (cracking && start.x+l*xInc <width && start.y+1*yInc<height) {
-      l+=0.1; //increment by less to crack slower
+  }
+  void addCrack() {
+    float newX = points.get(points.size()-1).x+ map(noise(n), 0, 1, 0, vel.x);
+    float newY= points.get(points.size()-1).y+ map(noise(n+1000), 0, 1, 0, vel.y);
+    PVector p = new PVector(newX, newY);
+    n+=5;
+    if (p.x<0 || p.x>width||p.y<0||p.y>height) {
+      done = true;
+    }
+    points.add(p);
+    if (zigzag) {
+      changeDirection();
+    }
+  }
+  void changeDirection() {
+    float random = random (10);
+    if (random<1) {
+      vel.x = -vel.x;
+    } else if (random>9) {
+      vel.y = - vel.y;
     }
   }
 }
