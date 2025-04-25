@@ -21,7 +21,7 @@ void keyPressed() {
   if (key == ' ') {
     lines.clear();
   } else if (key == 'q') {
-    Text newText = new Text(new PVector(random(width), random(height)));
+    Text newText = new Text(new PVector(random(width),(1+lines.size())*50));
     lines.add(newText);
   }
 }
