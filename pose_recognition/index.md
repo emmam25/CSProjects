@@ -5,11 +5,11 @@
 
 # Pose recognition
 
-<a href="sketch.js">source</a> 
+<a href="hello.js">source</a> 
 
 <main></main>
 
-<script src="sketch.js"></script>
+<script src="hello.js"></script>
 
 
 This example and more from Kyle Mcdonald:  
