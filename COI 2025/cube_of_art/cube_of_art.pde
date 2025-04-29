@@ -4,7 +4,6 @@ swirlies swirl;
 funky_shape shape;
 circles circles;
 boubakiki bk;
-tree tree;
 ArrayList<scene> scenes = new ArrayList<scene>();
 int selected = -1;
 

@@ -10,8 +10,8 @@ class ball {
   ball() {
     pos.x=random(mSize.x);
     pos.y=0;
-    vel.x=random(3,5);
-    vel.y=random(3,5);
+    vel.x=random(2,4);
+    vel.y=random(2,4);
     r=10;
 
     for (float x = mSize.x/2; x>= mSize.x/2 - mSize.x/10; x--) {
@@ -85,8 +85,10 @@ class ball {
     for (PVector m : mustaches) {
       if (dist(toCheck.x, toCheck.y, m.x, m.y)<20) {
         score+=5;
-      } else if (dist(toCheck.x, toCheck.y, m.x, m.y)<300) {
+      } else if (dist(toCheck.x, toCheck.y, m.x, m.y)<100) {
         score+=0.5;
+      } else if (dist(toCheck.x, toCheck.y, m.x, m.y)<200){
+        score +=0.05;
       } else {
         score --;
       }
